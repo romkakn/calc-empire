@@ -82,7 +82,7 @@ export const metadata: Metadata = {
 export default function Page() {
   const breadcrumbs = [
     { name: "Home", path: "/" },
-    { name: "Finance", path: "/" },
+    { name: "Finance", path: "/finance" },
     { name: TITLE, path: `/${SLUG}` },
   ];
 

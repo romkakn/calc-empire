@@ -21,14 +21,14 @@
     { "slug": "mortgage-recast-calculator", "title": "Mortgage Recast Calculator", "category": "finance", "tier": "S", "status": "live", "priority": 1 },
     { "slug": "no-vig-calculator", "title": "No-Vig Calculator", "category": "betting", "tier": "S", "status": "live", "priority": 2 },
     { "slug": "dividend-calculator", "title": "Dividend Calculator", "category": "finance", "tier": "S", "status": "live", "priority": 3 },
-    { "slug": "variance-calculator", "title": "Variance Calculator", "category": "stats", "tier": "S", "status": "planned", "priority": 4 },
-    { "slug": "asphalt-calculator", "title": "Asphalt Calculator", "category": "construction", "tier": "S", "status": "planned", "priority": 5 },
-    { "slug": "mixed-number-calculator", "title": "Mixed Number Calculator", "category": "math", "tier": "S", "status": "planned", "priority": 6 },
+    { "slug": "variance-calculator", "title": "Variance Calculator", "category": "stats", "tier": "S", "status": "live", "priority": 4 },
+    { "slug": "asphalt-calculator", "title": "Asphalt Calculator", "category": "construction", "tier": "S", "status": "live", "priority": 5 },
+    { "slug": "mixed-number-calculator", "title": "Mixed Number Calculator", "category": "math", "tier": "S", "status": "live", "priority": 6 },
     { "slug": "paycheck-calculator", "title": "Paycheck Calculator", "category": "payroll", "tier": "S", "status": "in-progress", "priority": 7, "programmatic": { "type": "us-state", "states": ["al","ak","az","ar","ca","co","ct","de","fl","ga","hi","id","il","in","ia","ks","ky","la","me","md","ma","mi","mn","ms","mo","mt","ne","nv","nh","nj","nm","ny","nc","nd","oh","ok","or","pa","ri","sc","sd","tn","tx","ut","vt","va","wa","wv","wi","wy"] } },
-    { "slug": "a1c-calculator", "title": "A1C Calculator", "category": "health", "tier": "A", "status": "planned", "priority": 8 },
+    { "slug": "a1c-calculator", "title": "A1C Calculator", "category": "health", "tier": "A", "status": "live", "priority": 8 },
     { "slug": "crcl-calculator", "title": "Creatinine Clearance Calculator", "category": "health", "tier": "A", "status": "planned", "priority": 9 },
     { "slug": "options-profit-calculator", "title": "Options Profit Calculator", "category": "finance", "tier": "A", "status": "planned", "priority": 10 },
-    { "slug": "chronological-age-calculator", "title": "Chronological Age Calculator", "category": "health", "tier": "A", "status": "planned", "priority": 11 }
+    { "slug": "chronological-age-calculator", "title": "Chronological Age Calculator", "category": "health", "tier": "A", "status": "live", "priority": 11 }
   ],
   "articles": [
     { "slug": "best-free-ai-video-generator-2026", "title": "Best Free AI Video Generator (2026)", "category": "articles", "tier": "content", "status": "planned", "priority": 12 },
