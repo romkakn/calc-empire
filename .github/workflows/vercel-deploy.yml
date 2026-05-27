@@ -1,0 +1,18 @@
+# Triggers a Vercel deploy on every push to main, even if Vercel's GitHub App
+# webhook gets BLOCKED (Hobby-tier quirk). The deploy hook URL is set as a
+# repo secret `VERCEL_DEPLOY_HOOK_URL` so it stays out of source.
+name: Vercel deploy (backup hook)
+on:
+  push:
+    branches: [main]
+jobs:
+  trigger-vercel:
+    runs-on: ubuntu-latest
+    steps:
+      - name: POST to Vercel deploy hook
+        run: |
+          if [ -z "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}" ]; then
+            echo "::warning::VERCEL_DEPLOY_HOOK_URL secret not set; skipping."
+            exit 0
+          fi
+          curl -sS -X POST "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}" -o /dev/null -w "%{http_code}\n"
