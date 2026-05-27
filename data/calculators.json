@@ -18,7 +18,7 @@
     "articles": { "label": "Guides", "schemaCategory": null }
   },
   "calculators": [
-    { "slug": "mortgage-recast-calculator", "title": "Mortgage Recast Calculator", "category": "finance", "tier": "S", "status": "planned", "priority": 1 },
+    { "slug": "mortgage-recast-calculator", "title": "Mortgage Recast Calculator", "category": "finance", "tier": "S", "status": "live", "priority": 1 },
     { "slug": "no-vig-calculator", "title": "No-Vig Calculator", "category": "betting", "tier": "S", "status": "planned", "priority": 2 },
     { "slug": "dividend-calculator", "title": "Dividend Calculator", "category": "finance", "tier": "S", "status": "planned", "priority": 3 },
     { "slug": "variance-calculator", "title": "Variance Calculator", "category": "stats", "tier": "S", "status": "planned", "priority": 4 },
