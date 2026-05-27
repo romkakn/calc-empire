@@ -129,15 +129,15 @@ export default function Page() {
       </Hero>
 
       <WorkedExample
-        scenario="You owe $300,000 on a 30-year mortgage at 6.50% with 28 years left. You inherit $50,000 and want to know what a recast would do to your payment."
+        scenario="You owe $300,000 on a mortgage at 6.50% with 28 years (336 months) of payments left. You inherit $50,000 and want to know what a recast would do to your payment."
         steps={[
-          { label: "Current monthly payment (P=300,000, r=6.5%, n=336)", value: "$1,896.20" },
+          { label: "Current monthly payment (P=300,000, r=6.5%, n=336)", value: "$1,941.06" },
           { label: "Principal after lump sum (300,000 − 50,000)", value: "$250,000.00" },
-          { label: "New monthly payment (P=250,000, r=6.5%, n=336)", value: "$1,580.17" },
-          { label: "Monthly savings", value: "$316.03" },
-          { label: "Lifetime savings (316.03 × 336 − 250 fee)", value: "$105,938.08" },
+          { label: "New monthly payment (P=250,000, r=6.5%, n=336)", value: "$1,617.55" },
+          { label: "Monthly savings", value: "$323.51" },
+          { label: "Lifetime savings (323.51 × 336 − 250 fee)", value: "$108,449.36" },
         ]}
-        result="$316/month lower, ~$106k saved over the remaining 28 years."
+        result="$324/month lower, ~$108k saved over the remaining 28 years (net of the $250 recast fee)."
       />
 
       <FormulaExplained

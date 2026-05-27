@@ -19,8 +19,8 @@
   },
   "calculators": [
     { "slug": "mortgage-recast-calculator", "title": "Mortgage Recast Calculator", "category": "finance", "tier": "S", "status": "live", "priority": 1 },
-    { "slug": "no-vig-calculator", "title": "No-Vig Calculator", "category": "betting", "tier": "S", "status": "planned", "priority": 2 },
-    { "slug": "dividend-calculator", "title": "Dividend Calculator", "category": "finance", "tier": "S", "status": "planned", "priority": 3 },
+    { "slug": "no-vig-calculator", "title": "No-Vig Calculator", "category": "betting", "tier": "S", "status": "live", "priority": 2 },
+    { "slug": "dividend-calculator", "title": "Dividend Calculator", "category": "finance", "tier": "S", "status": "live", "priority": 3 },
     { "slug": "variance-calculator", "title": "Variance Calculator", "category": "stats", "tier": "S", "status": "planned", "priority": 4 },
     { "slug": "asphalt-calculator", "title": "Asphalt Calculator", "category": "construction", "tier": "S", "status": "planned", "priority": 5 },
     { "slug": "mixed-number-calculator", "title": "Mixed Number Calculator", "category": "math", "tier": "S", "status": "planned", "priority": 6 },
