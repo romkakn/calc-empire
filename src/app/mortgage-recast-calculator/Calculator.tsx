@@ -1,6 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { Card } from "@/components/md3/Card";
+import { TextField } from "@/components/md3/TextField";
 
 // Standard mortgage amortization formula:
 //   M = P · [ r(1+r)^n ] / [ (1+r)^n - 1 ]
@@ -22,17 +24,6 @@ function fmtUSD(n: number): string {
     maximumFractionDigits: 2,
   });
 }
-
-type Field = {
-  id: string;
-  label: string;
-  hint?: string;
-  value: number;
-  min: number;
-  max: number;
-  step: number;
-  suffix?: string;
-};
 
 export function Calculator() {
   const [balance, setBalance] = useState(300_000);
@@ -58,110 +49,125 @@ export function Calculator() {
   const lumpValid = lumpSum >= 0 && lumpSum <= balance;
   const formValid = ratePositive && balancePositive && lumpValid && months > 0;
 
-  const fields: Field[] = [
-    { id: "balance", label: "Current mortgage balance", value: balance, min: 1000, max: 5_000_000, step: 1000, suffix: "USD" },
-    { id: "rate", label: "Interest rate", value: ratePct, min: 0, max: 25, step: 0.05, suffix: "% APR" },
-    { id: "years", label: "Years remaining on loan", value: yearsRemaining, min: 1, max: 40, step: 0.5, suffix: "years" },
-    { id: "lump", label: "Lump-sum prepayment", value: lumpSum, min: 0, max: balance, step: 500, suffix: "USD" },
-    { id: "fee", label: "Recast fee (lender)", value: recastFee, min: 0, max: 1000, step: 10, suffix: "USD" },
-  ];
-
-  function setField(id: string, n: number) {
-    if (id === "balance") setBalance(n);
-    if (id === "rate") setRatePct(n);
-    if (id === "years") setYearsRemaining(n);
-    if (id === "lump") setLumpSum(n);
-    if (id === "fee") setRecastFee(n);
-  }
-
   return (
-    <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-4 sm:p-6">
+    <Card variant="outlined" as="section" className="p-4 sm:p-6">
       <form
         className="grid gap-4 sm:grid-cols-2"
         onSubmit={(e) => e.preventDefault()}
         noValidate
+        aria-label="Mortgage recast inputs"
       >
-        {fields.map((f) => {
-          const errId = `${f.id}-err`;
-          let err: string | null = null;
-          if (f.id === "lump" && !lumpValid) err = "Lump sum can't exceed current balance.";
-          if (f.id === "rate" && !ratePositive) err = "Rate can't be negative.";
-          if (f.id === "balance" && !balancePositive) err = "Balance must be positive.";
+        <div className="sm:col-span-2">
+          <TextField
+            label="Current mortgage balance"
+            type="number"
+            inputMode="decimal"
+            value={balance}
+            onChange={(e) => setBalance(Number(e.target.value))}
+            min={1000}
+            max={5_000_000}
+            step={1000}
+            trailing="USD"
+            supportingText="From your most recent mortgage statement."
+            error={!balancePositive ? "Balance must be positive." : undefined}
+          />
+        </div>
 
-          return (
-            <div key={f.id} className={f.id === "balance" ? "sm:col-span-2" : ""}>
-              <label htmlFor={f.id} className="block text-sm font-medium">
-                {f.label}
-              </label>
-              <div className="mt-1 flex items-center gap-2">
-                <input
-                  id={f.id}
-                  name={f.id}
-                  type="number"
-                  inputMode="decimal"
-                  value={Number.isFinite(f.value) ? f.value : ""}
-                  min={f.min}
-                  max={f.max}
-                  step={f.step}
-                  aria-invalid={Boolean(err)}
-                  aria-errormessage={err ? errId : undefined}
-                  onChange={(e) => setField(f.id, Number(e.target.value))}
-                  className="w-full"
-                />
-                {f.suffix ? (
-                  <span className="text-sm text-[var(--color-on-surface-variant)]">
-                    {f.suffix}
-                  </span>
-                ) : null}
-              </div>
-              {err ? (
-                <p id={errId} className="mt-1 text-sm text-[var(--color-danger)]">
-                  {err}
-                </p>
-              ) : null}
-            </div>
-          );
-        })}
+        <TextField
+          label="Interest rate"
+          type="number"
+          inputMode="decimal"
+          value={ratePct}
+          onChange={(e) => setRatePct(Number(e.target.value))}
+          min={0}
+          max={25}
+          step={0.05}
+          trailing="% APR"
+          error={!ratePositive ? "Rate can't be negative." : undefined}
+        />
+        <TextField
+          label="Years remaining on loan"
+          type="number"
+          inputMode="decimal"
+          value={yearsRemaining}
+          onChange={(e) => setYearsRemaining(Number(e.target.value))}
+          min={1}
+          max={40}
+          step={0.5}
+          trailing="years"
+        />
+        <TextField
+          label="Lump-sum prepayment"
+          type="number"
+          inputMode="decimal"
+          value={lumpSum}
+          onChange={(e) => setLumpSum(Number(e.target.value))}
+          min={0}
+          max={balance}
+          step={500}
+          trailing="USD"
+          error={!lumpValid ? "Lump sum can't exceed current balance." : undefined}
+        />
+        <TextField
+          label="Recast fee (lender)"
+          type="number"
+          inputMode="decimal"
+          value={recastFee}
+          onChange={(e) => setRecastFee(Number(e.target.value))}
+          min={0}
+          max={1000}
+          step={10}
+          trailing="USD"
+          supportingText="Most servicers charge $150–$500. Some credit unions waive it."
+        />
       </form>
 
-      <div
-        role="status"
-        aria-live="polite"
-        className="mt-6 grid gap-3 rounded-md border border-[var(--color-border)] bg-[var(--color-surface-2)] p-4 sm:grid-cols-2"
+      <Card
+        variant="filled"
+        as="div"
+        className="mt-6 p-4 sm:p-5"
       >
-        <ResultRow
-          label="Current monthly payment"
-          value={formValid ? fmtUSD(oldPayment) : "—"}
-        />
-        <ResultRow
-          label="Monthly payment after recast"
-          value={formValid ? fmtUSD(newPayment) : "—"}
-          emphasized
-        />
-        <ResultRow
-          label="Monthly savings"
-          value={formValid ? fmtUSD(monthlySavings) : "—"}
-        />
-        <ResultRow
-          label="Lifetime savings (net of fee)"
-          value={formValid ? fmtUSD(lifetimeSavings) : "—"}
-          emphasized
-        />
-        <ResultRow
-          label="Principal after lump sum"
-          value={formValid ? fmtUSD(principalAfter) : "—"}
-        />
-        <ResultRow
-          label="Months remaining"
-          value={formValid ? `${months}` : "—"}
-        />
-      </div>
-      <p className="mt-2 text-xs text-[var(--color-on-surface-variant)]">
+        <div
+          role="status"
+          aria-live="polite"
+          aria-label="Calculated results"
+          className="grid gap-x-6 gap-y-4 sm:grid-cols-2"
+        >
+          <ResultRow
+            label="Current monthly payment"
+            value={formValid ? fmtUSD(oldPayment) : "—"}
+          />
+          <ResultRow
+            label="Monthly payment after recast"
+            value={formValid ? fmtUSD(newPayment) : "—"}
+            emphasized
+          />
+          <ResultRow
+            label="Monthly savings"
+            value={formValid ? fmtUSD(monthlySavings) : "—"}
+          />
+          <ResultRow
+            label="Lifetime savings (net of fee)"
+            value={formValid ? fmtUSD(lifetimeSavings) : "—"}
+            emphasized
+          />
+          <ResultRow
+            label="Principal after lump sum"
+            value={formValid ? fmtUSD(principalAfter) : "—"}
+          />
+          <ResultRow
+            label="Months remaining"
+            value={formValid ? `${months}` : "—"}
+          />
+        </div>
+      </Card>
+
+      <p className="md-body-small mt-3 text-[var(--md-sys-color-on-surface-variant)]">
         Estimates only. Same rate and remaining term assumed (recasts don&apos;t
         reset either). Confirm exact savings with your servicer&apos;s reamortization
         statement.
       </p>
-    </div>
+    </Card>
   );
 }
 
@@ -176,13 +182,15 @@ function ResultRow({
 }) {
   return (
     <div>
-      <p className="text-xs uppercase tracking-wide text-[var(--color-on-surface-variant)]">
+      <p className="md-label-medium uppercase tracking-wide text-[var(--md-sys-color-on-surface-variant)]">
         {label}
       </p>
       <p
         className={[
-          "mt-0.5 font-mono tabular-nums",
-          emphasized ? "text-lg font-semibold" : "text-base",
+          "mt-1 font-[var(--md-sys-typescale-mono-font)] tabular-nums",
+          emphasized
+            ? "md-headline-small text-[var(--md-sys-color-primary)]"
+            : "md-title-medium",
         ].join(" ")}
       >
         {value}

@@ -10,11 +10,11 @@ export function Hero({
   children?: ReactNode;
 }) {
   return (
-    <header className="mt-4">
-      <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+    <header className="mt-2">
+      <h1 className="md-display-small text-[var(--md-sys-color-on-surface)]">
         {title}
       </h1>
-      <p className="mt-3 max-w-prose text-lg text-[var(--color-on-surface-variant)]">
+      <p className="md-body-large mt-3 max-w-prose text-[var(--md-sys-color-on-surface-variant)]">
         {tagline}
       </p>
       {children ? <div className="mt-6">{children}</div> : null}

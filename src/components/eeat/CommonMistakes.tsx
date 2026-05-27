@@ -1,29 +1,33 @@
 import { Section } from "./Section";
+import { Card } from "../md3/Card";
 
 export type Mistake = { mistake: string; fix: string };
 
 export function CommonMistakes({ items }: { items: Mistake[] }) {
   return (
     <Section id="common-mistakes" title="Common mistakes (and what to do instead)">
-      <ul className="space-y-3 max-w-prose">
+      <ul className="space-y-3 max-w-prose list-none">
         {items.map((m, i) => (
-          <li
-            key={i}
-            className="rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] p-3"
-          >
-            <p>
-              <span aria-hidden className="mr-2 text-[var(--color-danger)]">
-                ✗
+          <Card key={i} variant="outlined" as="li" className="p-4">
+            <p className="md-title-medium flex items-start gap-2">
+              <span
+                aria-hidden
+                className="inline-flex size-6 items-center justify-center rounded-full bg-[var(--md-sys-color-error-container)] text-[var(--md-sys-color-on-error-container)] md-label-medium"
+              >
+                ✕
               </span>
-              <span className="font-medium">{m.mistake}</span>
+              <span>{m.mistake}</span>
             </p>
-            <p className="mt-1 text-sm">
-              <span aria-hidden className="mr-2 text-[var(--color-success)]">
+            <p className="md-body-medium mt-2 flex items-start gap-2">
+              <span
+                aria-hidden
+                className="inline-flex size-6 items-center justify-center rounded-full bg-[var(--md-sys-color-tertiary-container)] text-[var(--md-sys-color-on-tertiary-container)] md-label-medium"
+              >
                 ✓
               </span>
-              {m.fix}
+              <span>{m.fix}</span>
             </p>
-          </li>
+          </Card>
         ))}
       </ul>
     </Section>

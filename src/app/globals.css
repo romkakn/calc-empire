@@ -1,90 +1,282 @@
 @import "tailwindcss";
 
-/* Force the `dark:` variant to fire only when [data-theme="dark"] is on the
- * element or any ancestor. We never use prefers-color-scheme directly — the
- * inline ThemeBootstrap resolves it into data-theme="light|dark" before paint. */
+/* MD3 dark variant — fires when [data-theme="dark"] is on the element or any
+ * ancestor. ThemeBootstrap resolves prefers-color-scheme into the attribute
+ * before paint so we never depend on the OS media query directly. */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-/* ---------------------------------------------------------------------------
- * Design tokens (MD3-inspired, simplified).
- * Every contrast pair below has been picked to meet WCAG 2.2 AA:
- *  - body text ≥ 4.5:1
- *  - large text + UI ≥ 3:1
- * Verified at https://webaim.org/resources/contrastchecker/
- * ------------------------------------------------------------------------- */
+/* ============================================================================
+ * Material Design 3 — Tonal Tokens
+ *
+ * Source: m3.material.io (token reference June 2025). Baseline blueish source
+ * color, generated via Material Theme Builder. All on-* pairs are pre-verified
+ * to meet WCAG 2.2 AA (body text ≥ 4.5:1; large text + UI components ≥ 3:1).
+ *
+ * Light theme (the :root default) — surface-* family uses brightness tinting.
+ * Dark theme — surface-* family uses M3 elevation overlay (subtle primary tint
+ * baked into the hex) so we never need to apply runtime opacity overlays.
+ * ========================================================================== */
 
 :root,
 [data-theme="light"] {
-  --color-bg: #ffffff;
-  --color-surface: #ffffff;
-  --color-surface-2: #f4f4f5;
-  --color-on-surface: #18181b;            /* 16.45:1 on bg */
-  --color-on-surface-variant: #52525b;    /* 7.59:1 on bg  */
-  --color-border: #e4e4e7;
-  --color-primary: #1d4ed8;               /* 7.66:1 on bg  */
-  --color-on-primary: #ffffff;
-  --color-focus: #1d4ed8;
-  --color-danger: #b91c1c;                /* 6.79:1 on bg  */
-  --color-success: #166534;               /* 7.06:1 on bg  */
+  /* — Key tones — */
+  --md-sys-color-primary: #1f5fb1;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #d6e3ff;
+  --md-sys-color-on-primary-container: #001947;
 
-  --font-sans: var(--font-geist-sans, ui-sans-serif, system-ui, sans-serif);
-  --font-mono: var(--font-geist-mono, ui-monospace, monospace);
+  --md-sys-color-secondary: #555f71;
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-secondary-container: #d9e3f8;
+  --md-sys-color-on-secondary-container: #121c2b;
+
+  --md-sys-color-tertiary: #6f5675;
+  --md-sys-color-on-tertiary: #ffffff;
+  --md-sys-color-tertiary-container: #f8d8fe;
+  --md-sys-color-on-tertiary-container: #28132e;
+
+  --md-sys-color-error: #ba1a1a;
+  --md-sys-color-on-error: #ffffff;
+  --md-sys-color-error-container: #ffdad6;
+  --md-sys-color-on-error-container: #410002;
+
+  /* — Neutral surfaces — */
+  --md-sys-color-surface: #faf8fd;
+  --md-sys-color-on-surface: #1a1b20;
+  --md-sys-color-on-surface-variant: #43474e;
+
+  --md-sys-color-surface-container-lowest: #ffffff;
+  --md-sys-color-surface-container-low: #f4f3f8;
+  --md-sys-color-surface-container: #eeedf3;
+  --md-sys-color-surface-container-high: #e8e7ed;
+  --md-sys-color-surface-container-highest: #e2e2e8;
+
+  --md-sys-color-outline: #74777f;
+  --md-sys-color-outline-variant: #c4c6d0;
+
+  --md-sys-color-inverse-surface: #2f3036;
+  --md-sys-color-inverse-on-surface: #f1f0f7;
+  --md-sys-color-inverse-primary: #adc7ff;
+
+  --md-sys-color-scrim: #000000;
+  --md-sys-color-shadow: #000000;
+
+  /* — State layer opacities (M3 spec) — */
+  --md-sys-state-hover-opacity: 0.08;
+  --md-sys-state-focus-opacity: 0.12;
+  --md-sys-state-pressed-opacity: 0.12;
+  --md-sys-state-dragged-opacity: 0.16;
+
+  /* — Elevation shadows (M3 levels 0–5; dark theme adds subtle ambient) — */
+  --md-sys-elevation-1: 0 1px 2px 0 rgba(0, 0, 0, 0.06), 0 1px 3px 1px rgba(0, 0, 0, 0.05);
+  --md-sys-elevation-2: 0 1px 2px 0 rgba(0, 0, 0, 0.08), 0 2px 6px 2px rgba(0, 0, 0, 0.07);
+  --md-sys-elevation-3: 0 4px 8px 3px rgba(0, 0, 0, 0.07), 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  --md-sys-elevation-4: 0 6px 10px 4px rgba(0, 0, 0, 0.08), 0 2px 3px 0 rgba(0, 0, 0, 0.1);
+  --md-sys-elevation-5: 0 8px 12px 6px rgba(0, 0, 0, 0.09), 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+
+  /* — Shape scale (corner radius, MD3 spec) — */
+  --md-sys-shape-corner-none: 0;
+  --md-sys-shape-corner-xs: 4px;
+  --md-sys-shape-corner-sm: 8px;
+  --md-sys-shape-corner-md: 12px;
+  --md-sys-shape-corner-lg: 16px;
+  --md-sys-shape-corner-xl: 28px;
+  --md-sys-shape-corner-full: 9999px;
+
+  /* — Motion (durations + easings, MD3 spec) — */
+  --md-sys-motion-duration-short1: 50ms;
+  --md-sys-motion-duration-short2: 100ms;
+  --md-sys-motion-duration-short3: 150ms;
+  --md-sys-motion-duration-short4: 200ms;
+  --md-sys-motion-duration-medium1: 250ms;
+  --md-sys-motion-duration-medium2: 300ms;
+  --md-sys-motion-duration-long1: 450ms;
+  --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-emphasized: cubic-bezier(0.3, 0, 0, 1);
+  --md-sys-motion-easing-decelerated: cubic-bezier(0, 0, 0, 1);
+  --md-sys-motion-easing-accelerated: cubic-bezier(0.3, 0, 1, 1);
+
+  /* — Fonts (default brand: Geist; M3 lets the platform pick brand fonts) — */
+  --md-sys-typescale-plain-font: var(--font-geist-sans, ui-sans-serif, system-ui, sans-serif);
+  --md-sys-typescale-brand-font: var(--font-geist-sans, ui-sans-serif, system-ui, sans-serif);
+  --md-sys-typescale-mono-font: var(--font-geist-mono, ui-monospace, "SFMono-Regular", monospace);
 }
 
 [data-theme="dark"] {
-  --color-bg: #09090b;
-  --color-surface: #18181b;
-  --color-surface-2: #27272a;
-  --color-on-surface: #fafafa;            /* 18.27:1 on bg */
-  --color-on-surface-variant: #a1a1aa;    /* 8.07:1 on bg  */
-  --color-border: #3f3f46;
-  --color-primary: #93c5fd;               /* 9.96:1 on bg  */
-  --color-on-primary: #0c1e3f;
-  --color-focus: #93c5fd;
-  --color-danger: #fca5a5;                /* 8.31:1 on bg  */
-  --color-success: #86efac;               /* 11.49:1 on bg */
+  --md-sys-color-primary: #adc7ff;
+  --md-sys-color-on-primary: #00306e;
+  --md-sys-color-primary-container: #00468b;
+  --md-sys-color-on-primary-container: #d6e3ff;
+
+  --md-sys-color-secondary: #bdc7dc;
+  --md-sys-color-on-secondary: #273141;
+  --md-sys-color-secondary-container: #3e4759;
+  --md-sys-color-on-secondary-container: #d9e3f8;
+
+  --md-sys-color-tertiary: #dcbce1;
+  --md-sys-color-on-tertiary: #3f2845;
+  --md-sys-color-tertiary-container: #57405d;
+  --md-sys-color-on-tertiary-container: #f8d8fe;
+
+  --md-sys-color-error: #ffb4ab;
+  --md-sys-color-on-error: #690005;
+  --md-sys-color-error-container: #93000a;
+  --md-sys-color-on-error-container: #ffdad6;
+
+  --md-sys-color-surface: #121317;
+  --md-sys-color-on-surface: #e3e2e8;
+  --md-sys-color-on-surface-variant: #c4c6d0;
+
+  --md-sys-color-surface-container-lowest: #0d0e11;
+  --md-sys-color-surface-container-low: #1a1b20;
+  --md-sys-color-surface-container: #1e1f23;
+  --md-sys-color-surface-container-high: #28292e;
+  --md-sys-color-surface-container-highest: #333439;
+
+  --md-sys-color-outline: #8e9099;
+  --md-sys-color-outline-variant: #43474e;
+
+  --md-sys-color-inverse-surface: #e3e2e8;
+  --md-sys-color-inverse-on-surface: #2f3036;
+  --md-sys-color-inverse-primary: #1f5fb1;
+
+  /* Dark elevation: M3 uses ambient + dim shadows below tinted surfaces */
+  --md-sys-elevation-1: 0 1px 2px 0 rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
+  --md-sys-elevation-2: 0 1px 2px 0 rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
+  --md-sys-elevation-3: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-4: 0 6px 10px 4px rgba(0, 0, 0, 0.15), 0 2px 3px 0 rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-5: 0 8px 12px 6px rgba(0, 0, 0, 0.15), 0 4px 4px 0 rgba(0, 0, 0, 0.3);
 }
 
-/* Expose tokens to Tailwind so utilities like bg-[var(--color-surface)] just work. */
+/* Expose key tokens to Tailwind so utilities like bg-[var(--md-sys-color-surface)] just work. */
 @theme inline {
-  --color-background: var(--color-bg);
-  --color-foreground: var(--color-on-surface);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-mono);
+  --color-background: var(--md-sys-color-surface);
+  --color-foreground: var(--md-sys-color-on-surface);
+  --color-primary: var(--md-sys-color-primary);
+  --color-on-primary: var(--md-sys-color-on-primary);
+  --color-error: var(--md-sys-color-error);
+  --color-outline: var(--md-sys-color-outline);
+  --font-sans: var(--md-sys-typescale-plain-font);
+  --font-mono: var(--md-sys-typescale-mono-font);
 }
+
+/* ============================================================================
+ * Base styles + MD3 typography scale
+ * ========================================================================== */
 
 html {
-  background: var(--color-bg);
-  color: var(--color-on-surface);
+  background: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
   color-scheme: light dark;
 }
 
 body {
-  background: var(--color-bg);
-  color: var(--color-on-surface);
-  font-family: var(--font-sans);
-  font-size: 1rem;       /* ≥ 16px prevents iOS auto-zoom on input focus */
-  line-height: 1.55;
+  background: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  font-family: var(--md-sys-typescale-plain-font);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* Visible, high-contrast focus ring (≥ 3:1) for all interactive elements. */
-:focus-visible {
-  outline: 2px solid var(--color-focus);
-  outline-offset: 2px;
-  border-radius: 4px;
-}
+/* Typography utility classes — names match m3 token IDs. */
+.md-display-large    { font: 400 57px/64px var(--md-sys-typescale-brand-font); letter-spacing: -0.25px; }
+.md-display-medium   { font: 400 45px/52px var(--md-sys-typescale-brand-font); }
+.md-display-small    { font: 400 36px/44px var(--md-sys-typescale-brand-font); }
+.md-headline-large   { font: 400 32px/40px var(--md-sys-typescale-brand-font); }
+.md-headline-medium  { font: 400 28px/36px var(--md-sys-typescale-brand-font); }
+.md-headline-small   { font: 400 24px/32px var(--md-sys-typescale-brand-font); }
+.md-title-large      { font: 500 22px/28px var(--md-sys-typescale-brand-font); }
+.md-title-medium     { font: 500 16px/24px var(--md-sys-typescale-plain-font); letter-spacing: 0.15px; }
+.md-title-small      { font: 500 14px/20px var(--md-sys-typescale-plain-font); letter-spacing: 0.1px; }
+.md-body-large       { font: 400 16px/24px var(--md-sys-typescale-plain-font); letter-spacing: 0.5px; }
+.md-body-medium      { font: 400 14px/20px var(--md-sys-typescale-plain-font); letter-spacing: 0.25px; }
+.md-body-small       { font: 400 12px/16px var(--md-sys-typescale-plain-font); letter-spacing: 0.4px; }
+.md-label-large      { font: 500 14px/20px var(--md-sys-typescale-plain-font); letter-spacing: 0.1px; }
+.md-label-medium     { font: 500 12px/16px var(--md-sys-typescale-plain-font); letter-spacing: 0.5px; }
+.md-label-small      { font: 500 11px/16px var(--md-sys-typescale-plain-font); letter-spacing: 0.5px; }
 
-/* Touch targets: WCAG 2.2 SC 2.5.8 minimum 48×48 px for primary controls. */
-button,
-[role="button"],
-input[type="checkbox"],
-input[type="radio"] {
-  min-height: 48px;
-}
+/* ============================================================================
+ * Elevation utilities (apply M3 box-shadow levels)
+ * ========================================================================== */
+.md-elevation-0 { box-shadow: none; }
+.md-elevation-1 { box-shadow: var(--md-sys-elevation-1); }
+.md-elevation-2 { box-shadow: var(--md-sys-elevation-2); }
+.md-elevation-3 { box-shadow: var(--md-sys-elevation-3); }
+.md-elevation-4 { box-shadow: var(--md-sys-elevation-4); }
+.md-elevation-5 { box-shadow: var(--md-sys-elevation-5); }
 
-/* Form text inputs: keep visible label outside the input, do NOT rely on
- * placeholder as the only label. Inputs themselves must be 16px+ to avoid
- * iOS zoom. */
+/* ============================================================================
+ * Buttons — M3 filled / tonal / outlined / text
+ *
+ * All 40dp tall (with ≥48dp touch via min-height on the touchable region).
+ * State layer is applied via ::before with currentColor at the M3 opacities.
+ * Pill shape (full corner radius) is the M3 default.
+ * ========================================================================== */
+
+.md-btn,
+.md-btn-filled,
+.md-btn-tonal,
+.md-btn-outlined,
+.md-btn-text {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;      /* WCAG 2.2 SC 2.5.8 + MD3 touch */
+  padding: 10px 24px;
+  border-radius: var(--md-sys-shape-corner-full);
+  font: 500 14px/20px var(--md-sys-typescale-plain-font);
+  letter-spacing: 0.1px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition:
+    background-color var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard),
+    box-shadow var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard);
+  -webkit-user-select: none;
+          user-select: none;
+}
+.md-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard);
+  pointer-events: none;
+}
+.md-btn:hover::before { opacity: var(--md-sys-state-hover-opacity); }
+.md-btn:focus-visible::before { opacity: var(--md-sys-state-focus-opacity); }
+.md-btn:active::before { opacity: var(--md-sys-state-pressed-opacity); }
+
+.md-btn-filled {
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+}
+.md-btn-tonal {
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+.md-btn-outlined {
+  background: transparent;
+  color: var(--md-sys-color-primary);
+  border-color: var(--md-sys-color-outline);
+}
+.md-btn-text {
+  background: transparent;
+  color: var(--md-sys-color-primary);
+  padding: 10px 12px;
+}
+.md-btn-filled:hover { box-shadow: var(--md-sys-elevation-1); }
+
+/* ============================================================================
+ * Inputs — M3 outlined text field-ish base styles for native inputs.
+ * (For the floating-label experience, use the <TextField> component instead.)
+ * ========================================================================== */
+
 input[type="text"],
 input[type="number"],
 input[type="email"],
@@ -95,40 +287,78 @@ input[type="date"],
 input[type="password"],
 select,
 textarea {
-  font-size: 1rem;
-  min-height: 48px;
-  padding: 0.5rem 0.75rem;
-  background: var(--color-surface);
-  color: var(--color-on-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 6px;
+  width: 100%;
+  min-height: 56px;
+  padding: 16px;
+  font: 400 16px/24px var(--md-sys-typescale-plain-font);
+  background: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: var(--md-sys-shape-corner-xs);
+  transition: border-color var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard);
+  appearance: none;
 }
-
+select {
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--md-sys-color-on-surface-variant) 50%),
+    linear-gradient(135deg, var(--md-sys-color-on-surface-variant) 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) calc(50% - 3px),
+    calc(100% - 13px) calc(50% - 3px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 36px;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: -2px;
+  border-color: var(--md-sys-color-primary);
+}
 input[aria-invalid="true"],
 select[aria-invalid="true"],
 textarea[aria-invalid="true"] {
-  border-color: var(--color-danger);
-  outline-color: var(--color-danger);
+  border-color: var(--md-sys-color-error);
+}
+input[aria-invalid="true"]:focus,
+select[aria-invalid="true"]:focus,
+textarea[aria-invalid="true"]:focus {
+  outline-color: var(--md-sys-color-error);
 }
 
-/* Skip-link helper text. */
+/* Checkbox: bring M3 size + focus ring */
+input[type="checkbox"] {
+  min-height: 24px;
+  width: 24px;
+  height: 24px;
+  margin: 12px;
+  accent-color: var(--md-sys-color-primary);
+}
+
+/* ============================================================================
+ * Focus indicator (M3: 2px solid primary at 3dp offset, all interactive els)
+ * ========================================================================== */
+:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+  border-radius: var(--md-sys-shape-corner-xs);
+}
+
+/* ============================================================================
+ * Accessibility utilities
+ * ========================================================================== */
 .sr-only {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0);
+  white-space: nowrap; border: 0;
 }
 
-/* Reduced motion: collapse transitions to ~0 per WCAG 2.3.3 / SC 2.3.3. */
+/* Reduced motion (WCAG SC 2.3.3): collapse all transitions to near-zero. */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;

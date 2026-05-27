@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Section } from "./Section";
+import { Card } from "../md3/Card";
 
 export function FormulaExplained({
   plainEnglish,
@@ -12,17 +13,17 @@ export function FormulaExplained({
 }) {
   return (
     <Section id="formula" title="The formula, in plain English">
-      <p className="max-w-prose">{plainEnglish}</p>
-      <div className="mt-4 overflow-x-auto rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] p-4 font-mono text-sm">
+      <p className="md-body-large max-w-prose">{plainEnglish}</p>
+      <Card variant="outlined" className="mt-4 overflow-x-auto p-4 font-[var(--md-sys-typescale-mono-font)] md-body-medium">
         {formula}
-      </div>
-      <p className="mt-3 text-sm text-[var(--color-on-surface-variant)]">
+      </Card>
+      <p className="mt-3 md-body-small text-[var(--md-sys-color-on-surface-variant)]">
         Source:{" "}
         <a
           href={citation.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)] rounded-sm"
+          className="text-[var(--md-sys-color-primary)] underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--md-sys-color-primary)] rounded-[var(--md-sys-shape-corner-xs)]"
         >
           {citation.label}
         </a>
