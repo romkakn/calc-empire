@@ -8,7 +8,7 @@ export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
         {items.map((b, i) => {
           const last = i === items.length - 1;
           return (
-            <li key={b.path} className="flex items-center gap-1">
+            <li key={`${i}-${b.path}`} className="flex items-center gap-1">
               {last ? (
                 <span aria-current="page" className="text-[var(--color-on-surface)]">
                   {b.name}
