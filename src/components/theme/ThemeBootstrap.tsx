@@ -4,7 +4,10 @@
 // Reads cookie `theme` (system | light | dark). Falls back to system if unset
 // or invalid. For system, consults matchMedia('(prefers-color-scheme: dark)').
 //
-// Kept tiny and inline — no imports, no JSX, no Tailwind.
+// We deliberately bypass next/script here — both `beforeInteractive` and the
+// default strategies run *after* the initial paint, which defeats the entire
+// purpose (a flash of the wrong theme is the bug we're preventing). React 19's
+// hoisting picks this up correctly when placed inside the layout's <head>.
 
 const SCRIPT = `
 (function(){try{
