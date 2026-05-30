@@ -9,6 +9,19 @@ const nextConfig: NextConfig = {
   },
   poweredByHeader: false,
   reactStrictMode: true,
+  // Force-set X-Robots-Tag so search engines crawl + index every page.
+  // Vercel's edge has been observed adding `noindex` to *.vercel.app URLs;
+  // this override is applied per-route at origin so we always emit `index, follow`.
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Robots-Tag", value: "index, follow, max-image-preview:large" },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
