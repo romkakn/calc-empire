@@ -5,7 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
 import "./globals.css";
 import { SITE_URL, SITE } from "@/lib/site";
-import { jsonLd, organizationSchema } from "@/lib/schema";
+import { jsonLd, organizationSchema, webSiteSchema } from "@/lib/schema";
 import { ThemeBootstrap } from "@/components/theme/ThemeBootstrap";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -79,7 +79,7 @@ export default function RootLayout({
         <ThemeBootstrap />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: jsonLd(organizationSchema()) }}
+          dangerouslySetInnerHTML={{ __html: jsonLd(organizationSchema(), webSiteSchema()) }}
         />
 
         {/* Google Tag Manager — fires only if NEXT_PUBLIC_GTM_ID is set. */}

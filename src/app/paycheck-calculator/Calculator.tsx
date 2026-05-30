@@ -38,7 +38,13 @@ function fmtPct(p: number): string {
   return `${(p * 100).toFixed(1)}%`;
 }
 
-export function Calculator() {
+export function Calculator({
+  defaultStatePct = 0,
+  stateLabel,
+}: {
+  defaultStatePct?: number;
+  stateLabel?: string;
+} = {}) {
   const [grossPerPeriod, setGross] = useState(2500);
   const [frequency, setFrequency] = useState<Frequency>("biweekly");
   const [filingStatus, setStatus] = useState<FilingStatus>("single");
@@ -46,7 +52,7 @@ export function Calculator() {
   const [hsa, setHsa] = useState(0);
   const [otherPretax, setOtherPretax] = useState(0);
   const [postTax, setPostTax] = useState(0);
-  const [statePct, setStatePct] = useState(0);
+  const [statePct, setStatePct] = useState(defaultStatePct);
   const [extraFederalWithholding, setExtraFedWH] = useState(0);
 
   const summary = useMemo(() => {
@@ -92,7 +98,7 @@ export function Calculator() {
         <TextField label="Gross pay per period" type="number" inputMode="decimal" value={grossPerPeriod} onChange={(e) => setGross(Number(e.target.value))} min={0} step={50} trailing="USD" />
         <MdSelect id="frequency" label="Pay frequency" value={frequency} onChange={(v) => setFrequency(v as Frequency)} options={Object.entries(FREQ_LABEL)} />
         <MdSelect id="filing" label="Filing status" value={filingStatus} onChange={(v) => setStatus(v as FilingStatus)} options={Object.entries(STATUS_LABEL)} />
-        <TextField label="State income-tax rate" type="number" inputMode="decimal" value={statePct} onChange={(e) => setStatePct(Number(e.target.value))} min={0} max={15} step={0.1} trailing="% flat" supportingText="Quick estimate. Production build will use per-state brackets." />
+        <TextField label="State income-tax rate" type="number" inputMode="decimal" value={statePct} onChange={(e) => setStatePct(Number(e.target.value))} min={0} max={15} step={0.1} trailing="% flat" supportingText={stateLabel ? `Pre-filled with ${stateLabel}'s top marginal rate. Override if your effective rate differs.` : "Quick estimate. Production build will use per-state brackets."} />
         <TextField label="401(k) per period" type="number" inputMode="decimal" value={retire401k} onChange={(e) => setRetire(Number(e.target.value))} min={0} step={25} trailing="USD pre-tax" />
         <TextField label="HSA per period" type="number" inputMode="decimal" value={hsa} onChange={(e) => setHsa(Number(e.target.value))} min={0} step={25} trailing="USD pre-tax" />
         <TextField label="Other pre-tax deductions" type="number" inputMode="decimal" value={otherPretax} onChange={(e) => setOtherPretax(Number(e.target.value))} min={0} step={25} trailing="USD" />

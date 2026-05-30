@@ -1,0 +1,22 @@
+# After every push to main, wait for Vercel to deploy, then ping IndexNow
+# so Bing/Yandex pick up new/changed pages in minutes (instead of hours/days).
+# Google partially honours Bing's IndexNow signal as well.
+#
+# Requires repo secrets:
+#   SITE_HOST  (optional) — defaults to the canonical preview URL.
+name: IndexNow ping
+on:
+  push:
+    branches: [main]
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    needs: []
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for deploy to propagate
+        run: sleep 90
+      - name: Ping IndexNow
+        env:
+          SITE_HOST: ${{ secrets.SITE_HOST }}
+        run: bash scripts/indexnow-ping.sh

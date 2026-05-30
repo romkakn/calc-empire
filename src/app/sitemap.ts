@@ -1,5 +1,10 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL, LIVE_CALCULATORS, LIVE_ARTICLES, CATEGORIES } from "@/lib/site";
+import {
+  SITE_URL,
+  LIVE_CALCULATORS,
+  LIVE_ARTICLES,
+  CATEGORIES,
+} from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -9,7 +14,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
   ];
 
-  // Category pages — one per category that has at least one live calc.
   const liveCategories = new Set([
     ...LIVE_CALCULATORS.map((c) => c.category),
     ...LIVE_ARTICLES.map((a) => a.category),
@@ -30,6 +34,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  // Programmatic state-variant URLs (e.g. /paycheck-calculator/tx).
+  const stateRoutes: MetadataRoute.Sitemap = LIVE_CALCULATORS.flatMap((c) =>
+    c.programmatic?.type === "us-state"
+      ? c.programmatic.states.map((s) => ({
+          url: `${SITE_URL}/${c.slug}/${s}`,
+          lastModified: now,
+          changeFrequency: "monthly" as const,
+          priority: 0.6,
+        }))
+      : [],
+  );
+
   const articles: MetadataRoute.Sitemap = LIVE_ARTICLES.map((a) => ({
     url: `${SITE_URL}/${a.slug}`,
     lastModified: now,
@@ -37,5 +53,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...root, ...categories, ...calcs, ...articles];
+  return [...root, ...categories, ...calcs, ...stateRoutes, ...articles];
 }

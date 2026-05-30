@@ -26,51 +26,57 @@ import {
 const SLUG = "crcl-calculator";
 const TITLE = "Creatinine Clearance Calculator";
 const DESC =
-  "Estimate kidney function with our Creatinine Clearance Calculator. Uses the Cockcroft-Gault formula for accurate CrCl results in mL/min. Plain-English math.";
+  "Estimate CrCl with Cockcroft-Gault (drug-dosing) or eGFR with CKD-EPI 2021 (staging). Race-free, KDIGO band, both unit systems.";
 
 const FAQS: FaqItem[] = [
   {
-    question: "What is Creatinine Clearance (CrCl)?",
+    question: "What is creatinine clearance?",
     answer:
-      "Creatinine clearance is a measure of how well your kidneys are filtering waste products from your blood. It estimates the glomerular filtration rate (GFR), which is the volume of fluid filtered from the blood into the Bowman's capsule per unit time.",
+      "Creatinine clearance (CrCl) estimates how much blood the kidneys filter of creatinine per minute. It's a practical proxy for glomerular filtration rate and is the standard for adjusting drug doses in renal impairment.",
   },
   {
-    question: "What is the Cockcroft-Gault formula?",
+    question: "Cockcroft-Gault or CKD-EPI — which should I use?",
     answer:
-      "The Cockcroft-Gault formula is a mathematical equation used to estimate creatinine clearance based on a patient's age, weight, serum creatinine level, and sex. It was developed in 1976 and is widely used for drug dosing adjustments.",
+      "Cockcroft-Gault is the FDA-referenced equation for drug-dose adjustment. CKD-EPI 2021 is the current standard for staging chronic kidney disease. Match the equation to the clinical question.",
   },
   {
-    question: "Why is CrCl important for drug dosing?",
+    question: "Does CKD-EPI 2021 use race?",
     answer:
-      "Many medications are primarily cleared by the kidneys. If kidney function is impaired, these drugs can accumulate in the body, leading to toxicity. CrCl helps clinicians adjust drug dosages to prevent adverse effects.",
+      "No. The 2021 update from NKF and ASN removed the race coefficient. The equation uses age, sex, and serum creatinine only.",
   },
   {
-    question: "What is the difference between CrCl and eGFR?",
+    question: "What units should I enter?",
     answer:
-      "Creatinine clearance (CrCl) and estimated glomerular filtration rate (eGFR) both assess kidney function. CrCl, often calculated by Cockcroft-Gault, estimates the volume of blood cleared of creatinine per minute. eGFR, often calculated by MDRD or CKD-EPI equations, estimates the rate at which blood is filtered by the glomeruli. While related, they are not identical, and the choice depends on clinical context and drug-specific guidelines.",
+      "Both. Weight accepts kg or lb. Serum creatinine accepts mg/dL (US) or µmol/L (SI). The calculator converts internally — pick whichever matches your lab report.",
   },
   {
-    question: "Can this calculator be used for patients with unstable renal function?",
+    question: "Does Cockcroft-Gault work for obese patients?",
     answer:
-      "No, the Cockcroft-Gault formula, like most creatinine-based estimation equations, assumes stable renal function. It should not be used in situations of rapidly changing kidney function, such as acute kidney injury (AKI).",
+      "Actual body weight in Cockcroft-Gault tends to overestimate CrCl in obesity. Many institutions use adjusted body weight or ideal body weight above a BMI threshold. Check your local protocol.",
+  },
+  {
+    question: "What's a normal CrCl?",
+    answer:
+      "Roughly ≥ 90 mL/min for a healthy young adult. Filtration slowly declines with age; a 70-year-old at 70 mL/min is still in the mild-impairment band and usually doesn't need dose reduction.",
+  },
+  {
+    question: "Does this calculator give a diagnosis?",
+    answer:
+      "No. It estimates kidney function. Diagnosis of acute kidney injury or chronic kidney disease requires a clinician integrating serial labs, urine studies, and the clinical picture.",
+  },
+  {
+    question: "How accurate are these estimates?",
+    answer:
+      "Both equations are estimates with population-level error bars. For decisions in critical illness, pregnancy, or unstable renal function, a measured clearance (24-hour urine or iohexol) is more reliable.",
   },
 ];
 
 export const metadata: Metadata = {
-  title: `${TITLE} — Cockcroft-Gault Equation`,
+  title: `${TITLE} — Cockcroft-Gault & CKD-EPI 2021`,
   description: DESC,
   alternates: { canonical: `/${SLUG}` },
-  openGraph: {
-    title: TITLE,
-    description: DESC,
-    url: `/${SLUG}`,
-    type: "article",
-  },
+  openGraph: { title: TITLE, description: DESC, url: `/${SLUG}`, type: "article" },
   twitter: { card: "summary_large_image", title: TITLE, description: DESC },
-  robots: {
-    index: true,
-    follow: true,
-  },
 };
 
 export default function Page() {
@@ -81,27 +87,14 @@ export default function Page() {
   ];
 
   const schemas = [
-    softwareApplicationSchema({
-      name: TITLE,
-      slug: SLUG,
-      category: "health",
-      description: DESC,
-    }),
+    softwareApplicationSchema({ name: TITLE, slug: SLUG, category: "health", description: DESC }),
     howToSchema({
-      name: "How to estimate Creatinine Clearance",
+      name: "How to estimate creatinine clearance",
       steps: [
-        {
-          name: "Enter Age, Weight, and Serum Creatinine",
-          text: "Input the patient's age in years, weight in kilograms, and serum creatinine level in mg/dL.",
-        },
-        {
-          name: "Select Gender",
-          text: "Choose whether the patient is male or female, as the formula includes a gender-specific adjustment factor.",
-        },
-        {
-          name: "View Result",
-          text: "The calculator will display the estimated Creatinine Clearance in mL/min.",
-        },
+        { name: "Pick an equation", text: "Cockcroft-Gault for drug-dose adjustment. CKD-EPI 2021 for CKD staging." },
+        { name: "Enter age, sex, and weight", text: "Use actual body weight by default. Consider adjusted weight in obesity." },
+        { name: "Enter serum creatinine", text: "Use the most recent stable lab value. Acute changes invalidate the estimate." },
+        { name: "Read the result + KDIGO band", text: "G1–G5 maps to the kidney-function stage. Confirm any dose change against the drug label." },
       ],
     }),
     faqPageSchema(FAQS),
@@ -119,78 +112,68 @@ export default function Page() {
       <Breadcrumbs items={breadcrumbs} />
 
       <Hero
-        title="Creatinine Clearance Calculator"
-        tagline="Estimate kidney function using the Cockcroft-Gault equation for drug dosing and clinical assessment."
+        title={TITLE}
+        tagline="Cockcroft-Gault for drug dosing. CKD-EPI 2021 for staging. Both unit systems, race-free, with the KDIGO band built in."
       >
         <Calculator />
       </Hero>
 
       <WorkedExample
-        scenario="A 65-year-old male patient weighs 80 kg and has a serum creatinine of 1.2 mg/dL."
+        scenario="A 65-year-old male, 80 kg, serum creatinine 1.2 mg/dL — what's the Cockcroft-Gault CrCl?"
         steps={[
-          { label: "Age", value: "65 years" },
-          { label: "Weight", value: "80 kg" },
-          { label: "Serum Creatinine", value: "1.2 mg/dL" },
-          { label: "Gender", value: "Male" },
-          { label: "Formula (Male)", value: "((140 - Age) × Weight_kg) / (72 × Serum_Creatinine_mg_dL)" },
-          { label: "Calculation", value: "((140 - 65) × 80) / (72 × 1.2)" },
-          { label: "Result", value: "(75 × 80) / 86.4 = 6000 / 86.4 = 69.44 mL/min" },
+          { label: "Formula: ((140 − age) × weight_kg) / (72 × SCr_mg/dL)", value: "" },
+          { label: "Numerator: (140 − 65) × 80", value: "6,000" },
+          { label: "Denominator: 72 × 1.2", value: "86.4" },
+          { label: "Divide: 6,000 / 86.4", value: "69.4 mL/min" },
+          { label: "If female: × 0.85", value: "59.0 mL/min" },
         ]}
-        result="The estimated Creatinine Clearance for this patient is 69.44 mL/min."
+        result="Mild renal impairment for both. Many drugs don't need dose reduction until CrCl falls below 50–60 mL/min — check the label."
       />
 
       <FormulaExplained
-        plainEnglish="The Cockcroft-Gault equation estimates creatinine clearance, a proxy for kidney function. It considers age, as muscle mass (and thus creatinine production) decreases with age; weight, as creatinine is produced by muscle; and serum creatinine, the concentration of creatinine in the blood. For females, a factor of 0.85 is applied because women generally have less muscle mass than men."
+        plainEnglish="Cockcroft-Gault estimates kidney clearance from age, weight, sex, and creatinine — the four cheapest pieces of bedside information. CKD-EPI 2021 swaps weight for a body-surface-area normalization and a power function in creatinine, which performs better for staging across the population."
         formula={
           <span>
-            CrCl (male) = ((140 - Age) × Weight_kg) / (72 × Serum_Creatinine_mg_dL)
+            CrCl (mL/min) = ((140 − age) × weight<sub>kg</sub>) / (72 × SCr<sub>mg/dL</sub>) × (0.85 if female)
             <br />
-            CrCl (female) = CrCl (male) × 0.85
+            eGFR<sub>CKD-EPI 2021</sub> = 142 × min(SCr/κ, 1)<sup>α</sup> × max(SCr/κ, 1)<sup>-1.200</sup> × 0.9938<sup>age</sup> × (1.012 if female)
+            <br />
+            κ = 0.7 (female) / 0.9 (male); α = -0.241 (female) / -0.302 (male)
           </span>
         }
         citation={{
-          label: "Cockcroft DW, Gault MH. Prediction of creatinine clearance from serum creatinine. Nephron. 1976;16(1):31-41.",
-          href: "https://pubmed.ncbi.nlm.nih.gov/1244564/",
+          label: "Inker LA et al. — New Creatinine- and Cystatin C–Based Equations to Estimate GFR (NEJM, 2021)",
+          href: "https://www.nejm.org/doi/full/10.1056/NEJMoa2102953",
         }}
       />
 
       <WhenToUse
         scenarios={[
-          "Adjusting dosages for renally excreted medications (e.g., antibiotics, anticoagulants).",
-          "Assessing kidney function in older adults or those with significant muscle mass variations.",
-          "Monitoring kidney function in patients with chronic kidney disease (CKD) when eGFR equations are not preferred.",
-          "Evaluating potential kidney toxicity of certain drugs.",
+          "You're adjusting a renally cleared drug dose (DOACs, vancomycin, gabapentin, metformin) at the bedside.",
+          "You're staging chronic kidney disease for a primary-care follow-up plan.",
+          "You're a pharmacy resident verifying a label's renal dose-adjustment cutoff.",
+          "You're a nursing student studying clinical pharmacology.",
+          "You're a patient who got a lab back and wants to understand the eGFR number on the report.",
         ]}
       />
 
       <CommonMistakes
         items={[
-          {
-            mistake: "Using the calculator for unstable renal function (e.g., acute kidney injury).",
-            fix: "The Cockcroft-Gault formula assumes stable serum creatinine levels. For acute changes, direct measurement or alternative assessments are needed.",
-          },
-          {
-            mistake: "Not adjusting weight for obese or underweight patients.",
-            fix: "For patients with extreme body weights, using ideal body weight (IBW) or adjusted body weight (AjBW) may provide a more accurate estimate than actual body weight.",
-          },
-          {
-            mistake: "Using serum creatinine values in µmol/L without conversion.",
-            fix: "The formula requires serum creatinine in mg/dL. Convert µmol/L to mg/dL by dividing by 88.4.",
-          },
-          {
-            mistake: "Confusing Creatinine Clearance with GFR estimated by MDRD or CKD-EPI.",
-            fix: "While related, these are distinct. CrCl is often used for drug dosing, while eGFR is preferred for CKD staging. Always refer to specific guidelines.",
-          },
+          { mistake: "Using Cockcroft-Gault for CKD staging.", fix: "CKD-EPI 2021 is the staging standard. Cockcroft-Gault is for drug-dose decisions." },
+          { mistake: "Using an old, race-based CKD-EPI value.", fix: "The 2021 race-free equation is what guidelines now recommend. Update your tool." },
+          { mistake: "Trusting CrCl in unstable renal function.", fix: "Steady-state assumption fails when creatinine is rising or falling fast. Use clinical judgment in AKI." },
+          { mistake: "Ignoring obesity in Cockcroft-Gault.", fix: "Actual body weight overestimates CrCl. Many protocols switch to adjusted body weight above BMI 30." },
+          { mistake: "Skipping the drug label.", fix: "The label always wins. A calculator gives an estimate — the drug label gives the rule." },
         ]}
       />
 
       <RelatedTerms
         terms={[
-          { term: "Creatinine", definition: "A waste product from muscle metabolism, filtered by the kidneys." },
-          { term: "Glomerular Filtration Rate (GFR)", definition: "The rate at which blood is filtered by the glomeruli in the kidneys." },
-          { term: "Serum Creatinine", definition: "The concentration of creatinine in the blood, used as an indicator of kidney function." },
-          { term: "Acute Kidney Injury (AKI)", definition: "A sudden episode of kidney failure or kidney damage that happens within a few hours or a few days." },
-          { term: "Chronic Kidney Disease (CKD)", definition: "A progressive loss of kidney function over time." },
+          { term: "CrCl", definition: "Creatinine clearance — milliliters of blood cleared of creatinine per minute." },
+          { term: "eGFR", definition: "Estimated glomerular filtration rate — preferred for staging chronic kidney disease." },
+          { term: "KDIGO", definition: "International CKD-guideline body. Defines stages G1–G5 by GFR and A1–A3 by albuminuria." },
+          { term: "Cockcroft-Gault", definition: "1976 equation using age, sex, weight, and creatinine. Still FDA-referenced for drug dose adjustment." },
+          { term: "CKD-EPI 2021", definition: "Race-free update of CKD-EPI. Endorsed by NKF and ASN as the staging standard." },
         ]}
       />
 
@@ -198,23 +181,20 @@ export default function Page() {
 
       <References
         items={[
-          { label: "Cockcroft DW, Gault MH. Prediction of creatinine clearance from serum creatinine. Nephron. 1976;16(1):31-41.", href: "https://pubmed.ncbi.nlm.nih.gov/1244564/" },
-          { label: "National Kidney Foundation. GFR Calculators. Available at: https://www.kidney.org/professionals/gfr_calculatorCoc", href: "https://www.kidney.org/professionals/gfr_calculatorCoc" },
-          { label: "MDCalc. Creatinine Clearance (Cockcroft-Gault Equation). Available at: https://www.mdcalc.com/calc/43/creatinine-clearance-cockcroft-gault-equation", href: "https://www.mdcalc.com/calc/43/creatinine-clearance-cockcroft-gault-equation" },
+          { label: "Cockcroft DW, Gault MH — Prediction of creatinine clearance from serum creatinine (Nephron, 1976)", href: "https://pubmed.ncbi.nlm.nih.gov/1244564/" },
+          { label: "Inker LA et al. — New Creatinine- and Cystatin C–Based Equations to Estimate GFR (NEJM, 2021)", href: "https://www.nejm.org/doi/full/10.1056/NEJMoa2102953" },
+          { label: "National Kidney Foundation — CKD-EPI 2021 calculator", href: "https://www.kidney.org/professionals/kdoqi/gfr_calculator" },
+          { label: "FDA Guidance — Pharmacokinetics in Patients with Impaired Renal Function (2020)", href: "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/pharmacokinetics-patients-impaired-renal-function-study-design-data-analysis-and-impact-dosing" },
+          { label: "KDIGO 2024 Clinical Practice Guideline for CKD Evaluation and Management", href: "https://kdigo.org/guidelines/ckd-evaluation-and-management/" },
         ]}
       />
 
-      <Author reviewerNote="TODO_VERIFY: licensed nephrologist or pharmacist reviewer for production" />
-
-      <LastReviewed date="2026-05-30" />
+      <Author reviewerNote="TODO_VERIFY: licensed clinical pharmacist or nephrologist for production" />
+      <LastReviewed date="2026-05-31" />
 
       <RelatedCalculators
-        slugs={[
-          "a1c-calculator",
-          "chronological-age-calculator",
-        ]}
+        slugs={["a1c-calculator", "chronological-age-calculator", "variance-calculator"]}
       />
     </Container>
   );
 }
- 

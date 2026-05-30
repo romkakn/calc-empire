@@ -12,6 +12,22 @@ export function organizationSchema(): SchemaObject {
   };
 }
 
+export function webSiteSchema(): SchemaObject {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE.name,
+    url: SITE_URL,
+    description: SITE.tagline,
+    publisher: {
+      "@type": "Organization",
+      name: SITE.name,
+      url: SITE_URL,
+    },
+    inLanguage: "en-US",
+  };
+}
+
 export function personSchema(): SchemaObject {
   return {
     "@context": "https://schema.org",

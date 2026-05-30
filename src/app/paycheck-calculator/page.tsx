@@ -82,11 +82,6 @@ export const metadata: Metadata = {
     type: "article",
   },
   twitter: { card: "summary_large_image", title: TITLE, description: DESC },
-  robots: {
-    // v0 preview — keep noindex until 2026 tables + state pages land
-    index: false,
-    follow: true,
-  },
 };
 
 export default function Page() {

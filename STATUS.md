@@ -1,15 +1,17 @@
 # STATUS — calc-empire
 
 **For:** Roma · seomanager211@gmail.com
-**Last update:** 2026-05-27 (late evening)
+**Last update:** 2026-05-31
 **Repo:** https://github.com/romkakn/calc-empire (private)
 **Live URL:** https://calc-empire-roma-s-projects3.vercel.app
 
 ## TL;DR — fully live
 
-- ✅ **8 calculator pages** live with full E-E-A-T (mortgage-recast, no-vig, dividend, variance, asphalt, mixed-number, a1c, chronological-age) + paycheck-calculator preview (noindex)
+- ✅ **11 calculator pages** live with full E-E-A-T (mortgage-recast, no-vig, dividend, variance, asphalt, mixed-number, a1c, chronological-age, **crcl, options-profit, paycheck (federal)**)
+- ✅ **50 programmatic state pages** at `/paycheck-calculator/<state>` (al…wy) — state rate pre-filled from each DOR's top marginal, override-friendly
 - ✅ **7 category landing pages** (`/finance`, `/betting`, `/stats`, `/math`, `/health`, `/construction`, `/payroll`) auto-generated from `data/calculators.json`
-- ✅ **Sitemap (16 URLs)**, robots.txt, JSON-LD on every page, dynamic OG image + favicon
+- ✅ **Sitemap (70 URLs)**, robots.txt, JSON-LD on every page (now includes `WebSite`), dynamic OG image + favicon
+- ✅ **IndexNow** key + ping script + GitHub Action — every push to main pings Bing/Yandex within 90s so new pages get crawled in minutes
 - ✅ **Material Design 3** design system, light + dark + system themes, WCAG 2.2 AA accessibility
 - ✅ **Vercel auto-deploy on every push to `main`** — both Vercel's native GitHub App webhook AND a backup GitHub Action via a Vercel deploy hook
 - ✅ **Vercel Analytics + Speed Insights** code wired in; enable per the EDIT_GUIDE for live numbers
@@ -94,4 +96,3 @@ Roma never needs to manually click Redeploy. Edit files on GitHub → 30 sec lat
 - `src/app/mortgage-recast-calculator/page.tsx` — needs a licensed mortgage analyst named in the Author block
 - `src/app/paycheck-calculator/federalTax.ts` — uses 2025 IRS Publication 15-T tables; refresh to 2026 when IRS publishes (typically mid-November)
 - `docs/specs/*.md` — each spec lists its own forward-looking TODO_VERIFY items
- 
