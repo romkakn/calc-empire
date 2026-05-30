@@ -23,7 +23,7 @@ import {
   type FaqItem,
 } from "@/lib/schema";
 
-const SLUG = "creatinine-clearance-calculator";
+const SLUG = "crcl-calculator";
 const TITLE = "Creatinine Clearance Calculator";
 const DESC =
   "Estimate kidney function with our Creatinine Clearance Calculator. Uses the Cockcroft-Gault formula for accurate CrCl results in mL/min. Plain-English math.";
