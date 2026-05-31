@@ -13,15 +13,17 @@ import {
   LIVE_ARTICLES,
 } from "@/lib/site";
 
-const SEO_TITLE = `Free Online Calculators — Show the Math | ${SITE.name}`;
+// Root layout sets a `%s | Calc Empire` title template, so we leave the brand
+// suffix off the page title itself and let the template append it.
+const SEO_TITLE = "Free Online Calculators — Show the Math";
 const SEO_DESC = `Free, no-login calculators for finance, math, stats, health, construction, education, and pets. Each one shows the formula, a worked example, and the sources we cited — so you can trust the result and learn the math.`;
 
 export const metadata: Metadata = {
-  title: SEO_TITLE,
+  title: { absolute: `${SEO_TITLE} | ${SITE.name}` },
   description: SEO_DESC,
   alternates: { canonical: "/" },
   openGraph: {
-    title: SEO_TITLE,
+    title: `${SEO_TITLE} | ${SITE.name}`,
     description: SEO_DESC,
     url: "/",
     type: "website",

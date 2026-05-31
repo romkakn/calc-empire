@@ -35,17 +35,20 @@ export async function generateMetadata(
     .map((c) => c.title)
     .join(", ");
 
-  const title = `${cat.label} Calculators — Free & Show the Math | ${SITE.name}`;
+  // Root layout supplies `%s | Calc Empire` template — keep the page title
+  // brand-free here and let the template append, except for `openGraph.title`
+  // which is not run through the template.
+  const title = `${cat.label} Calculators — Free & Show the Math`;
   const desc = top
     ? `Free ${cat.label.toLowerCase()} calculators including ${top}. Each one shows the formula, a worked example, and cited sources.`
     : `Free ${cat.label.toLowerCase()} calculators from ${SITE.name} — formula + worked example + cited sources on every page.`;
 
   return {
-    title,
+    title: { absolute: `${title} | ${SITE.name}` },
     description: desc,
     alternates: { canonical: `/${category}` },
     openGraph: {
-      title,
+      title: `${title} | ${SITE.name}`,
       description: desc,
       url: `/${category}`,
       type: "website",
