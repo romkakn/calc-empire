@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/Container";
 import { Card } from "@/components/md3/Card";
+import { CalcCard } from "@/components/CalcCard";
+import { CategoryIcon } from "@/components/CategoryIcon";
 import { Breadcrumbs } from "@/components/eeat/Breadcrumbs";
 import {
   CALCULATORS,
@@ -25,16 +26,32 @@ export async function generateMetadata(
   const { category } = await params;
   const cat = CATEGORIES[category];
   if (!cat) return { title: "Not found" };
+
+  // Pull the top three live calcs in this category, by priority, so the meta
+  // description doubles as a keyword-rich preview of what's inside.
+  const top = LIVE_CALCULATORS.filter((c) => c.category === category)
+    .sort((a, b) => a.priority - b.priority)
+    .slice(0, 3)
+    .map((c) => c.title)
+    .join(", ");
+
+  const title = `${cat.label} Calculators — Free & Show the Math | ${SITE.name}`;
+  const desc = top
+    ? `Free ${cat.label.toLowerCase()} calculators including ${top}. Each one shows the formula, a worked example, and cited sources.`
+    : `Free ${cat.label.toLowerCase()} calculators from ${SITE.name} — formula + worked example + cited sources on every page.`;
+
   return {
-    title: `${cat.label} calculators`,
-    description: `${cat.label} calculators from ${SITE.name} — each with the formula, a worked example, and cited sources.`,
+    title,
+    description: desc,
     alternates: { canonical: `/${category}` },
     openGraph: {
-      title: `${cat.label} calculators — ${SITE.name}`,
-      description: `${cat.label} calculators with the math shown.`,
+      title,
+      description: desc,
       url: `/${category}`,
       type: "website",
+      siteName: SITE.name,
     },
+    twitter: { card: "summary_large_image", title, description: desc },
   };
 }
 
@@ -73,34 +90,38 @@ export default async function CategoryPage(
 
       <Breadcrumbs items={breadcrumbs} />
 
-      <h1 className="md-display-small mt-2 text-[var(--md-sys-color-on-surface)]">
-        {cat.label} calculators
-      </h1>
+      <div className="mt-2 flex items-center gap-3">
+        <span
+          aria-hidden
+          className="inline-flex h-12 w-12 items-center justify-center rounded-[var(--md-sys-shape-corner-full)] bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)]"
+        >
+          <CategoryIcon category={category} size={28} />
+        </span>
+        <h1 className="md-display-small text-[var(--md-sys-color-on-surface)]">
+          {cat.label} Calculators
+        </h1>
+      </div>
+
       <p className="md-body-large mt-3 max-w-prose text-[var(--md-sys-color-on-surface-variant)]">
+        Free, no-login {cat.label.toLowerCase()} calculators —{" "}
         {live.length} live{planned.length > 0 ? `, ${planned.length} on the roadmap` : ""}.
-        Every {cat.label.toLowerCase()} calculator on this site shows the formula and cites
+        Every {cat.label.toLowerCase()} calculator on this page shows the formula and cites
         its sources.
       </p>
 
       {live.length > 0 ? (
         <section aria-labelledby="live-heading" className="mt-10">
-          <h2 id="live-heading" className="md-headline-small">Live</h2>
+          <h2 id="live-heading" className="md-headline-small">All {cat.label.toLowerCase()} calculators</h2>
           <ul className="mt-4 grid gap-3 sm:grid-cols-2 list-none">
             {live.map((c) => (
-              <li key={c.slug}>
-                <Link
-                  href={`/${c.slug}`}
-                  className="block rounded-[var(--md-sys-shape-corner-md)] focus-visible:outline-none"
-                >
-                  <Card
-                    variant="elevated"
-                    className="p-4 transition-shadow duration-[var(--md-sys-motion-duration-short3)] hover:md-elevation-2"
-                  >
-                    <p className="md-title-medium text-[var(--md-sys-color-on-surface)]">
-                      {c.title}
-                    </p>
-                  </Card>
-                </Link>
+              <li key={c.slug} className="h-full">
+                <CalcCard
+                  slug={c.slug}
+                  title={c.title}
+                  description={c.description}
+                  category={c.category}
+                  hideCategory
+                />
               </li>
             ))}
           </ul>

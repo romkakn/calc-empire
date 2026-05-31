@@ -1,6 +1,5 @@
-import Link from "next/link";
 import { Section } from "./Section";
-import { Card } from "../md3/Card";
+import { CalcCard } from "../CalcCard";
 import { CALCULATORS } from "@/lib/site";
 
 export function RelatedCalculators({ slugs }: { slugs: string[] }) {
@@ -13,20 +12,14 @@ export function RelatedCalculators({ slugs }: { slugs: string[] }) {
     <Section id="related-calculators" title="Related calculators">
       <ul className="grid gap-3 sm:grid-cols-3 list-none">
         {items.map((c) => (
-          <li key={c.slug}>
-            <Link
-              href={`/${c.slug}`}
-              className="block focus-visible:outline-none rounded-[var(--md-sys-shape-corner-md)]"
-            >
-              <Card
-                variant="elevated"
-                className="p-4 transition-shadow duration-[var(--md-sys-motion-duration-short3)] hover:md-elevation-2"
-              >
-                <p className="md-title-medium text-[var(--md-sys-color-on-surface)]">
-                  {c.title}
-                </p>
-              </Card>
-            </Link>
+          <li key={c.slug} className="h-full">
+            <CalcCard
+              slug={c.slug}
+              title={c.title}
+              description={c.description}
+              category={c.category}
+              hideCategory
+            />
           </li>
         ))}
       </ul>

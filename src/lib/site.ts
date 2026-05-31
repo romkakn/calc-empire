@@ -17,6 +17,7 @@ export type CalcRecord = {
   tier: string;
   status: "planned" | "in-progress" | "live";
   priority: number;
+  description?: string;
   programmatic?: { type: "us-state"; states: string[] };
 };
 
@@ -27,6 +28,7 @@ export type ArticleRecord = {
   tier: string;
   status: "planned" | "in-progress" | "live";
   priority: number;
+  description?: string;
 };
 
 export const CALCULATORS = catalog.calculators as CalcRecord[];
