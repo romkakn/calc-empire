@@ -7,6 +7,7 @@ type Props = Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "id"> & {
   supportingText?: ReactNode;
   error?: string;
   trailing?: ReactNode;
+  leading?: ReactNode;
 };
 
 /**
@@ -24,6 +25,7 @@ export function TextField({
   supportingText,
   error,
   trailing,
+  leading,
   value,
   defaultValue,
   onChange,
@@ -75,14 +77,25 @@ export function TextField({
             "text-[var(--md-sys-color-on-surface)] caret-[var(--md-sys-color-primary)]",
             "md-body-large",
             trailing ? "pr-12" : "",
+            leading ? "pl-10" : "",
           ].join(" ")}
           {...rest}
         />
 
+        {leading ? (
+          <span
+            className="md-body-medium absolute left-4 text-[var(--md-sys-color-on-surface-variant)]"
+            aria-hidden
+          >
+            {leading}
+          </span>
+        ) : null}
+
         <label
           htmlFor={inputId}
           className={[
-            "pointer-events-none absolute left-4 px-1",
+            "pointer-events-none absolute px-1",
+            leading ? "left-10" : "left-4",
             "bg-[var(--md-sys-color-surface)]",
             "transition-all duration-[var(--md-sys-motion-duration-short3)]",
             filled

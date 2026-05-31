@@ -15,6 +15,8 @@
     "construction": { "label": "Construction", "schemaCategory": "BusinessApplication" },
     "payroll": { "label": "Payroll", "schemaCategory": "FinanceApplication" },
     "betting": { "label": "Betting", "schemaCategory": "FinanceApplication" },
+    "education": { "label": "Education", "schemaCategory": "EducationalApplication" },
+    "pets": { "label": "Pets", "schemaCategory": "LifestyleApplication" },
     "articles": { "label": "Guides", "schemaCategory": null }
   },
   "calculators": [
@@ -28,10 +30,41 @@
     { "slug": "a1c-calculator", "title": "A1C Calculator", "category": "health", "tier": "A", "status": "live", "priority": 8 },
     { "slug": "crcl-calculator", "title": "Creatinine Clearance Calculator", "category": "health", "tier": "A", "status": "live", "priority": 9 },
     { "slug": "options-profit-calculator", "title": "Options Profit Calculator", "category": "finance", "tier": "A", "status": "live", "priority": 10 },
-    { "slug": "chronological-age-calculator", "title": "Chronological Age Calculator", "category": "health", "tier": "A", "status": "live", "priority": 11 }
+    { "slug": "chronological-age-calculator", "title": "Chronological Age Calculator", "category": "health", "tier": "A", "status": "live", "priority": 11 },
+    { "slug": "weighted-grade-calculator", "title": "Weighted Grade Calculator", "category": "education", "tier": "S", "status": "live", "priority": 12 },
+    { "slug": "money-market-calculator", "title": "Money Market Calculator", "category": "finance", "tier": "S", "status": "live", "priority": 13 },
+    { "slug": "square-footage-calculator", "title": "Square Footage Calculator", "category": "construction", "tier": "S", "status": "live", "priority": 14 },
+    { "slug": "standard-deviation-calculator", "title": "Standard Deviation Calculator", "category": "stats", "tier": "S", "status": "live", "priority": 15 },
+    { "slug": "dog-age-calculator", "title": "Dog Age Calculator", "category": "pets", "tier": "S", "status": "live", "priority": 16 },
+    { "slug": "median-calculator", "title": "Median Calculator", "category": "stats", "tier": "S", "status": "live", "priority": 17 },
+    { "slug": "steps-to-miles-calculator", "title": "Steps to Miles Calculator", "category": "health", "tier": "S", "status": "live", "priority": 18 },
+    { "slug": "average-calculator", "title": "Average Calculator", "category": "stats", "tier": "S", "status": "live", "priority": 19 },
+    { "slug": "fractions-calculator", "title": "Fractions Calculator", "category": "math", "tier": "S", "status": "live", "priority": 20 },
+    { "slug": "height-calculator", "title": "Height Calculator", "category": "health", "tier": "A", "status": "live", "priority": 21 },
+    { "slug": "quadratic-formula-calculator", "title": "Quadratic Formula Calculator", "category": "math", "tier": "A", "status": "live", "priority": 22 },
+    { "slug": "rounding-calculator", "title": "Rounding Calculator", "category": "math", "tier": "A", "status": "live", "priority": 23 },
+    { "slug": "cumulative-gpa-calculator", "title": "Cumulative GPA Calculator", "category": "education", "tier": "A", "status": "live", "priority": 24 },
+    { "slug": "decimal-fraction-converter", "title": "Decimal to Fraction Converter", "category": "math", "tier": "A", "status": "live", "priority": 25 },
+    { "slug": "tip-calculator", "title": "Tip Calculator", "category": "finance", "tier": "A", "status": "live", "priority": 26 },
+    { "slug": "slope-calculator", "title": "Slope Calculator", "category": "math", "tier": "A", "status": "live", "priority": 27 },
+    { "slug": "max-heart-rate-calculator", "title": "Max Heart Rate Calculator", "category": "health", "tier": "A", "status": "live", "priority": 28 },
+    { "slug": "period-calculator", "title": "Period Calculator", "category": "health", "tier": "A", "status": "live", "priority": 29 },
+    { "slug": "cubic-yard-calculator", "title": "Cubic Yard Calculator", "category": "construction", "tier": "A", "status": "live", "priority": 30 },
+    { "slug": "percent-off-calculator", "title": "Percent Off Calculator", "category": "finance", "tier": "A", "status": "live", "priority": 31 },
+    { "slug": "discount-calculator", "title": "Discount Calculator", "category": "finance", "tier": "A", "status": "live", "priority": 32 },
+    { "slug": "high-school-gpa-calculator", "title": "High School GPA Calculator", "category": "education", "tier": "A", "status": "live", "priority": 33 },
+    { "slug": "square-root-calculator", "title": "Square Root Calculator", "category": "math", "tier": "A", "status": "live", "priority": 34 },
+    { "slug": "long-division-calculator", "title": "Long Division Calculator", "category": "math", "tier": "A", "status": "live", "priority": 35 },
+    { "slug": "factor-calculator", "title": "Factor Calculator", "category": "math", "tier": "A", "status": "live", "priority": 36 },
+    { "slug": "protein-intake-calculator", "title": "Protein Intake Calculator", "category": "health", "tier": "A", "status": "live", "priority": 37 },
+    { "slug": "scientific-notation-calculator", "title": "Scientific Notation Calculator", "category": "math", "tier": "A", "status": "live", "priority": 38 },
+    { "slug": "p-value-calculator", "title": "P-Value Calculator", "category": "stats", "tier": "A", "status": "live", "priority": 39 },
+    { "slug": "stock-profit-calculator", "title": "Stock Profit Calculator", "category": "finance", "tier": "A", "status": "live", "priority": 40 },
+    { "slug": "capital-gains-tax-calculator", "title": "Capital Gains Tax Calculator", "category": "finance", "tier": "A", "status": "live", "priority": 41 },
+    { "slug": "gravel-calculator", "title": "Gravel Calculator", "category": "construction", "tier": "A", "status": "live", "priority": 42 }
   ],
   "articles": [
-    { "slug": "best-free-ai-video-generator-2026", "title": "Best Free AI Video Generator (2026)", "category": "articles", "tier": "content", "status": "planned", "priority": 12 },
-    { "slug": "best-ai-humanizer", "title": "Best AI Humanizer", "category": "articles", "tier": "content", "status": "planned", "priority": 13 }
+    { "slug": "best-free-ai-video-generator-2026", "title": "Best Free AI Video Generator (2026)", "category": "articles", "tier": "content", "status": "planned", "priority": 50 },
+    { "slug": "best-ai-humanizer", "title": "Best AI Humanizer", "category": "articles", "tier": "content", "status": "planned", "priority": 51 }
   ]
 }
