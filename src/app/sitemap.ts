@@ -5,6 +5,7 @@ import {
   LIVE_ARTICLES,
   CATEGORIES,
 } from "@/lib/site";
+import { BLOG_POSTS } from "@/lib/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -12,7 +13,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const root: MetadataRoute.Sitemap = [
     { url: `${SITE_URL}/`, lastModified: now, changeFrequency: "weekly", priority: 1 },
     { url: `${SITE_URL}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${SITE_URL}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
   ];
+
+  const blog: MetadataRoute.Sitemap = BLOG_POSTS.map((p) => ({
+    url: `${SITE_URL}/blog/${p.slug}`,
+    lastModified: new Date(p.dateModified),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
 
   const liveCategories = new Set([
     ...LIVE_CALCULATORS.map((c) => c.category),
@@ -53,5 +62,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...root, ...categories, ...calcs, ...stateRoutes, ...articles];
+  return [...root, ...categories, ...calcs, ...stateRoutes, ...articles, ...blog];
 }

@@ -88,6 +88,20 @@ export function Nav() {
             </Link>
           );
         })}
+        <Link
+          href="/blog"
+          aria-current={pathname.startsWith("/blog") ? "page" : undefined}
+          className={[
+            "inline-flex items-center min-h-12 px-3 rounded-[var(--md-sys-shape-corner-full)] md-label-large",
+            "transition-colors duration-[var(--md-sys-motion-duration-short3)]",
+            "focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--md-sys-color-primary)] focus-visible:outline-offset-2",
+            pathname.startsWith("/blog")
+              ? "bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)]"
+              : "text-[var(--md-sys-color-on-surface)] hover:bg-[color-mix(in_srgb,var(--md-sys-color-on-surface)_8%,transparent)]",
+          ].join(" ")}
+        >
+          Blog
+        </Link>
       </nav>
 
       {/* Mobile: hamburger button + slide-in drawer. */}
@@ -172,6 +186,21 @@ export function Nav() {
                 </li>
               ))}
               <li className="mt-2 border-t border-[var(--md-sys-color-outline-variant)] pt-2">
+                <Link
+                  href="/blog"
+                  onClick={() => setOpen(false)}
+                  aria-current={pathname.startsWith("/blog") ? "page" : undefined}
+                  className={[
+                    "flex items-center min-h-12 px-4 mx-2 rounded-[var(--md-sys-shape-corner-full)] md-label-large",
+                    pathname.startsWith("/blog")
+                      ? "bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)]"
+                      : "text-[var(--md-sys-color-on-surface)] hover:bg-[color-mix(in_srgb,var(--md-sys-color-on-surface)_8%,transparent)]",
+                  ].join(" ")}
+                >
+                  Blog
+                </Link>
+              </li>
+              <li>
                 <Link
                   href="/about"
                   onClick={() => setOpen(false)}
