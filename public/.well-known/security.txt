@@ -1,0 +1,8 @@
+# If you found a security issue with Calc Empire, please report it
+# privately first — thanks for helping keep the site safe.
+
+Contact: mailto:romaknafel@gmail.com
+Preferred-Languages: en, he
+Canonical: https://calc-empire-roma-s-projects3.vercel.app/.well-known/security.txt
+Expires: 2027-06-01T00:00:00Z
+Policy: https://github.com/romkakn/calc-empire/blob/main/README.md
