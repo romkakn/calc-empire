@@ -13,7 +13,7 @@
 set -euo pipefail
 
 KEY="7b3a5e8c4f1d24a6b9e3c0d5f8a2461b"
-HOST="${SITE_HOST:-calc-empire-roma-s-projects3.vercel.app}"
+HOST="${SITE_HOST:-calculate-it.dev}"
 SITEMAP="https://${HOST}/sitemap.xml"
 
 echo "Fetching ${SITEMAP}..."

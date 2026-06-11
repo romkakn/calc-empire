@@ -2,7 +2,7 @@
 
 > Free online calculators that show the math.
 
-**Live:** https://calc-empire-roma-s-projects3.vercel.app
+**Live:** https://calculate-it.dev
 
 A growing library of plain-English calculators — finance, statistics, math,
 health, construction, payroll, education, and pets. Every page shows the
