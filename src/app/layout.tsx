@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 // verify the property without requiring an env-var round-trip.
 const GOOGLE_VERIFICATION =
   process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ||
-  "1jNRvYw4JFxvS9X2mRpMSmpAYPy7xR4FQX66zkJ_tPI";
+  "8LpFU3KNRly_E-P1QByUkko7DCiP8bcJRC4RUV9qUdY";
 const BING_VERIFICATION = process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION || "";
 const YANDEX_VERIFICATION = process.env.NEXT_PUBLIC_YANDEX_VERIFICATION || "";
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "";
