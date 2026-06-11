@@ -1,8 +1,11 @@
 import catalog from "../../data/calculators.json";
 
+// Canonical production URL. Vercel env `NEXT_PUBLIC_SITE_URL` wins if set;
+// otherwise we fall back to the custom domain so canonical URLs, JSON-LD,
+// OpenGraph, and the sitemap stay correct even without env-var config.
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
-  "https://calc-empire.local";
+  "https://calculate-it.dev";
 
 export const SITE = catalog.site;
 export const CATEGORIES = catalog.categories as Record<

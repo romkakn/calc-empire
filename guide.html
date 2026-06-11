@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Calc Empire — Editing &amp; Operating Guide (Local)</title>
+<style>
+  /* ====================================================================
+   * Material Design 3 tonal tokens — same as the live site.
+   * Light + dark via prefers-color-scheme. All contrast pairs ≥ AA.
+   * ==================================================================== */
+  :root {
+    --primary:           #1f5fb1;
+    --on-primary:        #ffffff;
+    --primary-container: #d6e3ff;
+    --on-primary-container: #001947;
+    --secondary-container: #d9e3f8;
+    --on-secondary-container: #121c2b;
+    --tertiary-container: #f8d8fe;
+    --on-tertiary-container: #28132e;
+    --error:             #ba1a1a;
+    --error-container:   #ffdad6;
+    --on-error-container:#410002;
+    --surface:           #faf8fd;
+    --on-surface:        #1a1b20;
+    --on-surface-variant:#43474e;
+    --surface-container-lowest: #ffffff;
+    --surface-container-low:    #f4f3f8;
+    --surface-container:        #eeedf3;
+    --surface-container-high:   #e8e7ed;
+    --outline:           #74777f;
+    --outline-variant:   #c4c6d0;
+    --shape-xs: 4px;
+    --shape-sm: 8px;
+    --shape-md: 12px;
+    --shape-lg: 16px;
+    --shape-full: 9999px;
+    --elev-1: 0 1px 2px 0 rgba(0,0,0,0.06), 0 1px 3px 1px rgba(0,0,0,0.05);
+    --elev-2: 0 1px 2px 0 rgba(0,0,0,0.08), 0 2px 6px 2px rgba(0,0,0,0.07);
+    --plain: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono:  ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --primary:           #adc7ff;
+      --on-primary:        #00306e;
+      --primary-container: #00468b;
+      --on-primary-container: #d6e3ff;
+      --secondary-container: #3e4759;
+      --on-secondary-container: #d9e3f8;
+      --tertiary-container: #57405d;
+      --on-tertiary-container: #f8d8fe;
+      --error:             #ffb4ab;
+      --error-container:   #93000a;
+      --on-error-container:#ffdad6;
+      --surface:           #121317;
+      --on-surface:        #e3e2e8;
+      --on-surface-variant:#c4c6d0;
+      --surface-container-lowest: #0d0e11;
+      --surface-container-low:    #1a1b20;
+      --surface-container:        #1e1f23;
+      --surface-container-high:   #28292e;
+      --outline:           #8e9099;
+      --outline-variant:   #43474e;
+      --elev-1: 0 1px 2px 0 rgba(0,0,0,0.30), 0 1px 3px 1px rgba(0,0,0,0.15);
+      --elev-2: 0 1px 2px 0 rgba(0,0,0,0.30), 0 2px 6px 2px rgba(0,0,0,0.15);
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--plain);
+    background: var(--surface);
+    color: var(--on-surface);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============ MD3 typography scale ============ */
+  .display-small { font: 400 36px/44px var(--plain); letter-spacing: -0.25px; }
+  .headline-medium { font: 400 28px/36px var(--plain); }
+  .headline-small  { font: 400 24px/32px var(--plain); }
+  .title-large  { font: 500 22px/28px var(--plain); }
+  .title-medium { font: 500 16px/24px var(--plain); letter-spacing: 0.15px; }
+  .body-large   { font: 400 16px/24px var(--plain); }
+  .body-medium  { font: 400 14px/20px var(--plain); letter-spacing: 0.25px; }
+  .body-small   { font: 400 12px/16px var(--plain); letter-spacing: 0.4px; }
+  .label-large  { font: 500 14px/20px var(--plain); letter-spacing: 0.1px; }
+  .label-medium { font: 500 12px/16px var(--plain); letter-spacing: 0.5px; }
+
+  /* ============ Layout ============ */
+  header.topbar {
+    position: sticky; top: 0; z-index: 30;
+    background: var(--surface-container);
+    border-bottom: 1px solid var(--outline-variant);
+  }
+  .topbar-inner {
+    max-width: 1100px; margin: 0 auto;
+    padding: 12px 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .brand { font: 500 22px/28px var(--plain); }
+  .brand-tag { font: 400 12px/16px var(--plain); color: var(--on-surface-variant); margin-left: 8px; }
+  .layout {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 32px;
+  }
+  @media (max-width: 880px) {
+    .layout { grid-template-columns: 1fr; }
+    aside.toc { position: static; }
+  }
+  aside.toc {
+    position: sticky;
+    top: 72px;
+    align-self: start;
+    border: 1px solid var(--outline-variant);
+    border-radius: var(--shape-md);
+    padding: 16px;
+    background: var(--surface-container-low);
+  }
+  aside.toc p { margin: 0 0 8px; color: var(--on-surface-variant); }
+  aside.toc ol { margin: 0; padding-left: 18px; }
+  aside.toc a { color: var(--on-surface); text-decoration: none; }
+  aside.toc a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  main article { max-width: 720px; }
+  main section { margin-top: 56px; scroll-margin-top: 96px; }
+  main section:first-of-type { margin-top: 0; }
+  main h2 { margin: 0 0 16px; }
+  main h2 a { color: inherit; text-decoration: none; }
+  main h2 a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  main h3 { margin: 32px 0 8px; }
+  main p, main ol, main ul { max-width: 65ch; }
+  main ol, main ul { padding-left: 22px; }
+  main li { margin: 6px 0; }
+
+  a { color: var(--primary); text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: var(--shape-xs); }
+
+  code, pre {
+    font-family: var(--mono);
+  }
+  :where(p, li, dd) code, :where(td) code {
+    background: var(--surface-container-low);
+    padding: 1px 5px;
+    border-radius: var(--shape-xs);
+    font-size: 0.92em;
+  }
+  pre {
+    margin: 12px 0;
+    padding: 16px;
+    overflow-x: auto;
+    background: var(--surface-container-low);
+    border: 1px solid var(--outline-variant);
+    border-radius: var(--shape-md);
+    font-size: 13px;
+    line-height: 1.55;
+  }
+  pre code { background: transparent; padding: 0; }
+
+  /* ============ Cards ============ */
+  .card {
+    border: 1px solid var(--outline-variant);
+    border-radius: var(--shape-md);
+    padding: 16px;
+    background: var(--surface);
+    margin: 12px 0;
+  }
+  .card.elevated {
+    border-color: transparent;
+    background: var(--surface-container-low);
+    box-shadow: var(--elev-1);
+  }
+  .card.filled {
+    border-color: transparent;
+    background: var(--surface-container-high);
+  }
+
+  /* ============ Notes (info / warn / danger) ============ */
+  .note {
+    display: flex; gap: 12px;
+    border-radius: var(--shape-md);
+    padding: 14px 16px;
+    margin: 16px 0;
+  }
+  .note .icon { font-size: 20px; line-height: 1; }
+  .note.info   { background: var(--secondary-container); color: var(--on-secondary-container); }
+  .note.warn   { background: var(--tertiary-container); color: var(--on-tertiary-container); }
+  .note.danger { background: var(--error-container); color: var(--on-error-container); }
+
+  /* ============ Key/Value rows ============ */
+  dl.kv { margin: 12px 0; display: grid; gap: 10px; }
+  dl.kv > div {
+    border: 1px solid var(--outline-variant);
+    border-radius: var(--shape-sm);
+    padding: 10px 12px;
+  }
+  dl.kv dt {
+    font-family: var(--mono);
+    color: var(--primary);
+    font: 500 14px/20px var(--mono);
+    letter-spacing: 0.1px;
+  }
+  dl.kv dd { margin: 4px 0 0; font: 400 14px/20px var(--plain); }
+
+  /* ============ Tables ============ */
+  table.md {
+    width: 100%; border-collapse: collapse;
+    font: 400 14px/20px var(--plain);
+    margin: 12px 0;
+  }
+  table.md thead { background: var(--surface-container-high); }
+  table.md th, table.md td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--outline-variant);
+    vertical-align: top;
+  }
+  table.md th {
+    font: 500 12px/16px var(--plain);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--on-surface-variant);
+  }
+
+  /* ============ Recipe + trouble blocks ============ */
+  .recipe { /* uses .card */ }
+  .recipe h4 { margin: 0 0 8px; font: 500 16px/24px var(--plain); }
+  .trouble { background: var(--surface-container-high); }
+  .trouble p { margin: 6px 0; }
+
+  hr { border: 0; border-top: 1px solid var(--outline-variant); margin: 40px 0; }
+
+  .meta-strip {
+    color: var(--on-surface-variant);
+    font: 400 12px/16px var(--plain);
+    margin-top: 24px;
+  }
+
+  /* Smooth-scroll anchor jumps */
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <span class="brand">Calc Empire</span>
+    <span class="brand-tag">Editing &amp; Operating Guide · local copy</span>
+  </div>
+</header>
+
+<div class="layout">
+
+  <aside class="toc" aria-label="On this page">
+    <p class="label-medium">ON THIS PAGE</p>
+    <ol>
+      <li><a href="#mental-model">The mental model</a></li>
+      <li><a href="#edit-content">Edit page content</a></li>
+      <li><a href="#seo-controls">SEO controls</a></li>
+      <li><a href="#vercel-essentials">Vercel essentials</a></li>
+      <li><a href="#github-essentials">GitHub essentials</a></li>
+      <li><a href="#common-recipes">Common recipes</a></li>
+      <li><a href="#troubleshooting">Troubleshooting</a></li>
+      <li><a href="#glossary">Glossary</a></li>
+      <li><a href="#do-not-touch">Files NOT to touch</a></li>
+    </ol>
+  </aside>
+
+  <main>
+  <article>
+
+  <h1 class="display-small">Editing &amp; Operating Guide</h1>
+  <p class="body-large" style="color:var(--on-surface-variant); margin-top:12px;">
+    A no-code reference for running Calc Empire. Written for an SEO expert who
+    doesn't code. Every workflow ends with either a GitHub edit (Vercel auto-deploys
+    in ~30 sec) or a Vercel env var change (then Redeploy).
+  </p>
+
+  <div class="note info">
+    <span class="icon" aria-hidden>ℹ</span>
+    <div class="body-medium">
+      <strong>Two URLs you live in:</strong>
+      <ul>
+        <li>GitHub repo (source of truth): <a href="https://github.com/romkakn/calc-empire">github.com/romkakn/calc-empire</a></li>
+        <li>Vercel dashboard (deploys + env vars + analytics): <a href="https://vercel.com/roma-s-projects3/calc-empire">vercel.com/roma-s-projects3/calc-empire</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ================= 1. MENTAL MODEL ================= -->
+  <section id="mental-model">
+    <h2 class="headline-medium"><a href="#mental-model">1. The mental model</a></h2>
+    <p>Three layers, from where you spend your time to where the machinery hums silently:</p>
+    <ol>
+      <li><strong>You edit a file on GitHub</strong> (or you tell Claude what to change). Files are mostly plain text with familiar Markdown-ish content inside.</li>
+      <li><strong>GitHub stores the change</strong> and emits a webhook to Vercel. You see your edit as a new commit on the <code>main</code> branch.</li>
+      <li><strong>Vercel rebuilds the site</strong> from the latest commit and swaps the live URL to the new build. ~30 seconds end-to-end.</li>
+    </ol>
+    <p>You don't touch a server, install anything, or run any commands. Everything is either a GitHub UI click or a Vercel UI click.</p>
+  </section>
+
+  <!-- ================= 2. EDIT CONTENT ================= -->
+  <section id="edit-content">
+    <h2 class="headline-medium"><a href="#edit-content">2. Edit page content</a></h2>
+    <p>Every calculator page lives in two files under <code>src/app/&lt;slug&gt;/</code>:</p>
+    <dl class="kv">
+      <div><dt>page.tsx</dt><dd>The visible page — title, tagline, FAQs, references, worked example, common mistakes. Edit text here.</dd></div>
+      <div><dt>Calculator.tsx</dt><dd>The interactive widget — input labels, helper text, the formula in code. Touch only if you understand the math.</dd></div>
+    </dl>
+
+    <h3 class="title-large">Edit a FAQ on GitHub</h3>
+    <ol>
+      <li>Open <a href="https://github.com/romkakn/calc-empire/blob/main/src/app/mortgage-recast-calculator/page.tsx">src/app/mortgage-recast-calculator/page.tsx</a> (any calc's <code>page.tsx</code>).</li>
+      <li>Click the <strong>pencil icon (✎)</strong> at the top-right of the file view.</li>
+      <li>Find the <code>FAQS</code> array near the top. Each item looks like:</li>
+    </ol>
+<pre><code>{
+  question: "What are the downsides of a mortgage recast?",
+  answer:
+    "You give up liquid cash for a lower payment, the rate…",
+},</code></pre>
+    <ol start="4">
+      <li>Edit any <code>question</code> or <code>answer</code> string between the quotes. Don't change the commas, braces, or quotes around them.</li>
+      <li>Scroll to the bottom → <strong>Commit changes</strong> → optionally add a message → <strong>Commit changes</strong> again.</li>
+      <li>Wait 30 sec. Refresh the live page. Done.</li>
+    </ol>
+
+    <div class="note warn">
+      <span class="icon" aria-hidden>⚠</span>
+      <div class="body-medium"><strong>The one rule that'll trip you up:</strong> keep the surrounding punctuation intact. If you delete a comma at the end of an item or a quote around a string, the build fails. Vercel emails you the build error so you know to fix it.</div>
+    </div>
+
+    <h3 class="title-large">Edit a worked example, references, or related terms</h3>
+    <p>Same file, same pattern. Look for the array named after what you want to change (e.g. <code>scenarios</code>, <code>references</code>, <code>terms</code>). Each item is a small object with English strings inside quotes. Edit the strings, commit, done.</p>
+
+    <h3 class="title-large">Edit the homepage tagline</h3>
+    <p>Open <a href="https://github.com/romkakn/calc-empire/blob/main/data/calculators.json">data/calculators.json</a> → change <code>"tagline"</code> under <code>site</code>. Commit. The homepage h1, &lt;title&gt;, meta description, OG/Twitter tags, and JSON-LD all update automatically.</p>
+  </section>
+
+  <!-- ================= 3. SEO CONTROLS ================= -->
+  <section id="seo-controls">
+    <h2 class="headline-medium"><a href="#seo-controls">3. SEO controls</a></h2>
+    <p>Everything an SEO touches lives in a small, predictable set of places.</p>
+
+    <h3 class="title-large">Per-page meta tags</h3>
+    <p>Each page's <code>page.tsx</code> exports a <code>metadata</code> object near the top:</p>
+<pre><code>export const metadata: Metadata = {
+  title: "Mortgage Recast Calculator (2026)",
+  description: "Estimate your new monthly payment…",
+  alternates: { canonical: "/mortgage-recast-calculator" },
+  openGraph: { title, description, url, type: "article" },
+  twitter:   { card: "summary_large_image", title, description },
+};</code></pre>
+    <dl class="kv">
+      <div><dt>title</dt><dd>≤ 60 chars. Browser tab + SERP + OG title.</dd></div>
+      <div><dt>description</dt><dd>≤ 155 chars. Meta description + OG/Twitter description.</dd></div>
+      <div><dt>alternates.canonical</dt><dd>Always exactly matches the route. Don't change unless you move the page (then also add a redirect).</dd></div>
+    </dl>
+
+    <h3 class="title-large">Sitemap &amp; robots</h3>
+    <p>Both are auto-generated from <code>data/calculators.json</code>. To add a page to <code>/sitemap.xml</code>, mark its entry <code>"status": "live"</code>. To remove it, set to <code>"in-progress"</code> or <code>"planned"</code>.</p>
+    <p><code>robots.txt</code> is a static <em>Allow: /</em> with the sitemap link. To noindex a single page, add <code>robots: { index: false }</code> to its <code>metadata</code> block (we do this for <code>/paycheck-calculator</code> preview).</p>
+
+    <h3 class="title-large">JSON-LD structured data</h3>
+    <p>Every calc page emits 5 schemas. They're generated from helpers in <code>src/lib/schema.ts</code> — you don't hand-write them:</p>
+    <dl class="kv">
+      <div><dt>SoftwareApplication</dt><dd>Required Calculator schema. Reads name + category + description from the page.</dd></div>
+      <div><dt>HowTo</dt><dd>Steps for using the calculator. Read directly from the page's metadata.</dd></div>
+      <div><dt>FAQPage</dt><dd>Generated from the same FAQS array you edit for the visible FAQ.</dd></div>
+      <div><dt>BreadcrumbList</dt><dd>Home → category → page.</dd></div>
+      <div><dt>Person</dt><dd>Author (you). Edit <code>data/calculators.json</code> → <code>site.author</code>.</dd></div>
+    </dl>
+    <p>To validate any page's structured data: <a href="https://validator.schema.org/">validator.schema.org</a> → paste a live URL.</p>
+
+    <h3 class="title-large">Open Graph image &amp; favicon</h3>
+    <p>Auto-generated:</p>
+    <dl class="kv">
+      <div><dt>opengraph-image.tsx</dt><dd>1200×630 PNG built at request time. Used for every page unless that page ships its own. Edit the JSX in <code>src/app/opengraph-image.tsx</code> to change the layout.</dd></div>
+      <div><dt>icon.tsx</dt><dd>32×32 favicon. Edit <code>src/app/icon.tsx</code> to change the colour or letters.</dd></div>
+    </dl>
+
+    <h3 class="title-large">Install header codes (GA / GTM / FB Pixel / GSC)</h3>
+    <p><strong>You don't edit code for these.</strong> Set environment variables in Vercel → Redeploy. The layout reads the env vars and injects the right scripts only if set.</p>
+    <table class="md">
+      <thead>
+        <tr><th>Vercel env var</th><th>What it does</th><th>Where to get the value</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>NEXT_PUBLIC_GA_MEASUREMENT_ID</code></td><td>Loads Google Analytics 4</td><td>analytics.google.com → create property → <code>G-XXXXXXXXXX</code></td></tr>
+        <tr><td><code>NEXT_PUBLIC_GTM_ID</code></td><td>Loads Google Tag Manager (use for FB Pixel, Hotjar, etc.)</td><td>tagmanager.google.com → <code>GTM-XXXXXXX</code></td></tr>
+        <tr><td><code>NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION</code></td><td>Google Search Console ownership meta tag</td><td>search.google.com/search-console → property → Settings → ownership verification → HTML tag → copy <code>content="…"</code></td></tr>
+        <tr><td><code>NEXT_PUBLIC_BING_SITE_VERIFICATION</code></td><td>Bing Webmaster ownership tag</td><td>bing.com/webmasters → site → meta tag value</td></tr>
+        <tr><td><code>NEXT_PUBLIC_YANDEX_VERIFICATION</code></td><td>Yandex Webmaster ownership tag</td><td>webmaster.yandex.com → meta tag value</td></tr>
+      </tbody>
+    </table>
+    <p class="body-small" style="color:var(--on-surface-variant)">The <code>NEXT_PUBLIC_</code> prefix is required for variables that must be readable in the browser. Don't rename them.</p>
+
+    <h3 class="title-large">Submit the sitemap</h3>
+    <ol>
+      <li>Verify ownership in GSC (above).</li>
+      <li>GSC → <strong>Sitemaps</strong> → enter <code>https://&lt;your-domain&gt;/sitemap.xml</code> → <strong>Submit</strong>.</li>
+      <li>Google starts crawling within ~24 hours. Watch <strong>Coverage</strong> for indexed pages.</li>
+      <li>Repeat at Bing Webmaster Tools (optional but free).</li>
+    </ol>
+  </section>
+
+  <!-- ================= 4. VERCEL ESSENTIALS ================= -->
+  <section id="vercel-essentials">
+    <h2 class="headline-medium"><a href="#vercel-essentials">4. Vercel essentials</a></h2>
+    <p>Vercel hosts the live site, runs every build, and serves the analytics dashboard. You almost never log in unless something changed in the plumbing.</p>
+
+    <h3 class="title-large">The five Vercel tabs</h3>
+    <dl class="kv">
+      <div><dt>Overview</dt><dd>Latest deployment + live URL. The default tab.</dd></div>
+      <div><dt>Deployments</dt><dd>History of every build. Green = Ready. Red = Error. Blue = Building. Click any row to see logs. Click ⋯ → Promote to Production to instantly roll back.</dd></div>
+      <div><dt>Analytics</dt><dd>Visitor numbers (page views, top pages, top referrers). Free on Hobby plan up to 2,500 events/month — enable in this tab.</dd></div>
+      <div><dt>Speed Insights</dt><dd>Core Web Vitals from real users. Auto-enabled once the site has traffic.</dd></div>
+      <div><dt>Settings</dt><dd>Env vars · Domains · Git integration. Where 95% of your Vercel time goes.</dd></div>
+    </dl>
+
+    <h3 class="title-large">Environment variables</h3>
+    <p>The home for header codes, verification tags, and the production URL.</p>
+    <ol>
+      <li>Settings → <strong>Environment Variables</strong>.</li>
+      <li>Click <strong>Add</strong>.</li>
+      <li>Key = the name (e.g. <code>NEXT_PUBLIC_GA_MEASUREMENT_ID</code>). Value = the actual code.</li>
+      <li>Environments → tick <strong>Production</strong>.</li>
+      <li><strong>Save</strong>.</li>
+      <li>Deployments tab → ⋯ on the latest → <strong>Redeploy</strong>. The new value goes live in ~30 sec.</li>
+    </ol>
+
+    <h3 class="title-large">How auto-deploy works</h3>
+    <p>Every push to <code>main</code> triggers a build. Two paths fire on every push for redundancy:</p>
+    <ol>
+      <li><strong>Vercel's GitHub App webhook</strong> — the native path. Fast.</li>
+      <li><strong>A backup GitHub Action</strong> at <code>.github/workflows/vercel-deploy.yml</code> — pings a Vercel deploy hook URL stored as a repo secret. Fires even if Vercel's webhook hiccups.</li>
+    </ol>
+    <div class="note warn">
+      <span class="icon" aria-hidden>⚠</span>
+      <div class="body-medium"><strong>The commit-author-email rule:</strong> Vercel blocks any deployment whose commit author email it can't recognise. Your repo's <code>user.email</code> is set to <code>seomanager211@gmail.com</code> to match your Vercel account. If you ever commit from a different machine, run <code>git config user.email seomanager211@gmail.com</code> first, or you'll see <strong>BLOCKED</strong> deployments.</div>
+    </div>
+
+    <h3 class="title-large">Custom domain</h3>
+    <ol>
+      <li>Buy a domain (Namecheap, Porkbun, Google Domains). ~$10/yr.</li>
+      <li>Vercel → Settings → <strong>Domains</strong> → <strong>Add</strong> → type the domain.</li>
+      <li>Vercel shows DNS records to add at your registrar. Copy + paste them.</li>
+      <li>Wait 5–60 min. Certificate auto-issues.</li>
+      <li>Edit env var <code>NEXT_PUBLIC_SITE_URL</code> to the new domain. Redeploy.</li>
+    </ol>
+    <p class="body-medium" style="color:var(--on-surface-variant)">The sitemap, robots.txt, JSON-LD canonical URLs, and OG tags all rewrite to the new domain automatically once the env var is updated + redeployed.</p>
+
+    <h3 class="title-large">Rollback</h3>
+    <p>Deployments tab → find any green "Ready" row from before things broke → click <strong>⋯</strong> → <strong>Promote to Production</strong>. Live within 2 seconds. No build required.</p>
+
+    <h3 class="title-large">Preview deployments</h3>
+    <p>Every branch other than <code>main</code> gets its own preview URL when pushed. Format: <code>calc-empire-git-&lt;branch&gt;-roma-s-projects3.vercel.app</code>. Use to test changes before merging into <code>main</code>.</p>
+
+    <h3 class="title-large">Hobby plan limits</h3>
+    <dl class="kv">
+      <div><dt>Build minutes</dt><dd>6,000/month. Each build ~45 sec. You'd need ~130 deploys/day to hit it.</dd></div>
+      <div><dt>Bandwidth</dt><dd>100 GB/month. Calc pages are ~30 KB compressed; millions of pageviews before you'd come close.</dd></div>
+      <div><dt>Function invocations</dt><dd>100,000/month. Static pages don't count.</dd></div>
+      <div><dt>Concurrent builds</dt><dd>1. Two pushes in quick succession queue; one waits.</dd></div>
+    </dl>
+  </section>
+
+  <!-- ================= 5. GITHUB ESSENTIALS ================= -->
+  <section id="github-essentials">
+    <h2 class="headline-medium"><a href="#github-essentials">5. GitHub essentials</a></h2>
+
+    <h3 class="title-large">Edit a file from the web UI</h3>
+    <ol>
+      <li>Open the file on github.com (use a direct link from this guide).</li>
+      <li>Click the pencil icon <strong>✎</strong> top-right.</li>
+      <li>Edit. Preview tab shows rendered Markdown if applicable.</li>
+      <li>Scroll down. <strong>Commit changes</strong> → leave the default message or write your own → choose "Commit directly to <code>main</code>".</li>
+      <li>Vercel picks it up automatically. ~30 sec to live.</li>
+    </ol>
+
+    <h3 class="title-large">Add a new file</h3>
+    <ol>
+      <li>Navigate to the folder where the file belongs.</li>
+      <li>Top-right → <strong>Add file</strong> → <strong>Create new file</strong>.</li>
+      <li>Type a filename. Paste content. Commit.</li>
+    </ol>
+
+    <h3 class="title-large">Pull requests (optional)</h3>
+    <p>If a change feels risky, commit it to a new branch instead of <code>main</code> (GitHub UI offers this option at commit time). Open a Pull Request. Vercel builds a preview URL on the PR — test it → merge when happy → <code>main</code> rebuilds.</p>
+
+    <h3 class="title-large">Repo secrets</h3>
+    <p>Settings (gear icon) → <strong>Secrets and variables</strong> → <strong>Actions</strong>. Currently set:</p>
+    <dl class="kv">
+      <div><dt>VERCEL_DEPLOY_HOOK_URL</dt><dd>URL that the GitHub Action POSTs to on every push, triggering a Vercel build. Don't paste this anywhere public — it's effectively a write key to your Vercel project.</dd></div>
+    </dl>
+
+    <h3 class="title-large">The author-email rule (because it bit us)</h3>
+    <div class="note danger">
+      <span class="icon" aria-hidden>⛔</span>
+      <div class="body-medium">
+        Every commit's author email must match your Vercel account email (<code>seomanager211@gmail.com</code>). The repo is already configured correctly for the GitHub web UI — every commit you make there uses your GitHub account's primary email. Trouble starts only if you commit from another machine without first running:
+<pre style="margin-top:8px;"><code>git config --global user.email "seomanager211@gmail.com"</code></pre>
+      </div>
+    </div>
+
+    <h3 class="title-large">Find recent activity</h3>
+    <dl class="kv">
+      <div><dt>Commits</dt><dd><a href="https://github.com/romkakn/calc-empire/commits/main">github.com/.../commits/main</a> — every change ever made, newest first.</dd></div>
+      <div><dt>Actions</dt><dd><a href="https://github.com/romkakn/calc-empire/actions">github.com/.../actions</a> — the backup deploy workflow runs. Green ✓ = it pinged Vercel successfully.</dd></div>
+    </dl>
+  </section>
+
+  <!-- ================= 6. COMMON RECIPES ================= -->
+  <section id="common-recipes">
+    <h2 class="headline-medium"><a href="#common-recipes">6. Common recipes</a></h2>
+
+    <div class="card recipe"><h4>Fix a typo on a calculator page</h4>
+      <ol>
+        <li>Open the calc's <code>page.tsx</code> on GitHub.</li>
+        <li>Pencil ✎ to edit. Find the typo. Fix it.</li>
+        <li>Commit changes → Commit directly to main → green button.</li>
+        <li>Wait ~30 sec. Refresh the live page.</li>
+      </ol>
+    </div>
+
+    <div class="card recipe"><h4>Add Google Analytics</h4>
+      <ol>
+        <li>analytics.google.com → create property → copy the Measurement ID (G-XXXXXXXXXX).</li>
+        <li>Vercel → Settings → Environment Variables → Add → Key <code>NEXT_PUBLIC_GA_MEASUREMENT_ID</code> → Value <code>G-XXXX</code> → tick Production → Save.</li>
+        <li>Deployments tab → ⋯ on latest → Redeploy.</li>
+        <li>Wait ~30 sec. GA Realtime should show traffic when you visit the site.</li>
+      </ol>
+    </div>
+
+    <div class="card recipe"><h4>Submit the site to Google Search Console</h4>
+      <ol>
+        <li>search.google.com/search-console → Add property → URL prefix → paste the production URL.</li>
+        <li>Choose HTML tag → copy the <code>content="…"</code> value.</li>
+        <li>Vercel → Add env var <code>NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION</code> = the value → Save → Redeploy.</li>
+        <li>Back in GSC → click Verify.</li>
+        <li>GSC → Sitemaps → enter <code>/sitemap.xml</code> → Submit.</li>
+      </ol>
+    </div>
+
+    <div class="card recipe"><h4>Promote a planned calculator to live</h4>
+      <ol>
+        <li>Open <code>data/calculators.json</code> on GitHub.</li>
+        <li>Find the slug. Change <code>"status": "planned"</code> to <code>"status": "live"</code>.</li>
+        <li>Commit. ~30 sec later it appears on the homepage, in its category page, and in the sitemap.</li>
+      </ol>
+    </div>
+
+    <div class="card recipe"><h4>Add a new FAQ to an existing calculator</h4>
+      <ol>
+        <li>Open the calc's <code>page.tsx</code> on GitHub.</li>
+        <li>Find the <code>FAQS</code> array. Copy an existing <code>{ question, answer }</code> block.</li>
+        <li>Paste it inside the array, edit question + answer text. Keep the trailing comma after the closing brace.</li>
+        <li>Commit. The visible FAQ AND the FAQPage JSON-LD update automatically.</li>
+      </ol>
+    </div>
+
+    <div class="card recipe"><h4>Buy and connect a custom domain</h4>
+      <ol>
+        <li>Buy at Namecheap / Porkbun / Google Domains.</li>
+        <li>Vercel → Settings → Domains → Add → type the domain.</li>
+        <li>Copy the DNS records Vercel shows → paste them at your registrar.</li>
+        <li>Wait 5–60 min for DNS to propagate. Certificate issues automatically.</li>
+        <li>Update env var <code>NEXT_PUBLIC_SITE_URL</code> to the new domain. Redeploy.</li>
+        <li>Update GSC + Bing + GA with the new domain.</li>
+      </ol>
+    </div>
+
+    <div class="card recipe"><h4>Roll back a bad deploy</h4>
+      <ol>
+        <li>Vercel → Deployments tab.</li>
+        <li>Find a previous green Ready row from when the site was working.</li>
+        <li>Click ⋯ → Promote to Production.</li>
+        <li>Live in ~2 sec. Fix the bug, push a new commit when ready.</li>
+      </ol>
+    </div>
+
+    <div class="card recipe"><h4>Add a redirect from an old URL</h4>
+      <ol>
+        <li>Open <code>next.config.ts</code> on GitHub.</li>
+        <li>Inside the <code>nextConfig</code> object, add a <code>redirects()</code> async function (see template below).</li>
+        <li>Commit. After deploy, the old URL 308-redirects to the new one.</li>
+      </ol>
+<pre><code>async redirects() {
+  return [
+    { source: "/old-calc", destination: "/new-calc", permanent: true },
+  ];
+}</code></pre>
+    </div>
+  </section>
+
+  <!-- ================= 7. TROUBLESHOOTING ================= -->
+  <section id="troubleshooting">
+    <h2 class="headline-medium"><a href="#troubleshooting">7. Troubleshooting</a></h2>
+
+    <div class="card trouble">
+      <p class="title-medium">Vercel deploy is BLOCKED (red)</p>
+      <p><strong>Why:</strong> The commit author email isn't recognised by Vercel.</p>
+      <p><strong>Fix:</strong> Make a new commit via the GitHub web UI (it uses your GitHub primary email, which matches Vercel).</p>
+    </div>
+
+    <div class="card trouble">
+      <p class="title-medium">Vercel build failed with a syntax error</p>
+      <p><strong>Why:</strong> A missing comma, quote, or brace in a <code>.tsx</code> file.</p>
+      <p><strong>Fix:</strong> Vercel → Deployments → the failed row → Build Logs. The error names a file and line number. Open that file on GitHub, fix the punctuation, commit.</p>
+    </div>
+
+    <div class="card trouble">
+      <p class="title-medium">Sitemap or JSON-LD shows the wrong domain</p>
+      <p><strong>Why:</strong> <code>NEXT_PUBLIC_SITE_URL</code> env var isn't set, or wasn't applied to Production.</p>
+      <p><strong>Fix:</strong> Vercel → Settings → Environment Variables → confirm the value (no trailing slash) → tick Production → Redeploy.</p>
+    </div>
+
+    <div class="card trouble">
+      <p class="title-medium">Page returns 404 NOT_FOUND on Vercel</p>
+      <p><strong>Why:</strong> No deployment exists yet, or the file path doesn't match the URL.</p>
+      <p><strong>Fix:</strong> Confirm the slug in <code>data/calculators.json</code> matches the folder name under <code>src/app/</code>.</p>
+    </div>
+
+    <div class="card trouble">
+      <p class="title-medium">Site shows "Authentication Required" page</p>
+      <p><strong>Why:</strong> Vercel Deployment Protection is on.</p>
+      <p><strong>Fix:</strong> Vercel → Settings → Deployment Protection → set to None for production. The protection blocks Googlebot — turn it off for any indexable site.</p>
+    </div>
+
+    <div class="card trouble">
+      <p class="title-medium">GA / GTM isn't loading</p>
+      <p><strong>Why:</strong> Env var name typo, or wasn't applied to Production scope, or you forgot to redeploy.</p>
+      <p><strong>Fix:</strong> Confirm the env var name starts with <code>NEXT_PUBLIC_</code> exactly as in this guide. Tick Production. Redeploy. Hard-refresh the live page (Cmd+Shift+R).</p>
+    </div>
+  </section>
+
+  <!-- ================= 8. GLOSSARY ================= -->
+  <section id="glossary">
+    <h2 class="headline-medium"><a href="#glossary">8. Glossary</a></h2>
+    <dl class="kv">
+      <div><dt>commit</dt><dd>A snapshot of every file in the repo at a moment. Each commit gets a unique short ID (7 hex chars).</dd></div>
+      <div><dt>branch</dt><dd>A named line of commits. The live site builds from <code>main</code>.</dd></div>
+      <div><dt>push</dt><dd>Upload your local commits to GitHub.</dd></div>
+      <div><dt>webhook</dt><dd>An automatic HTTP POST GitHub sends to Vercel when you push.</dd></div>
+      <div><dt>env var</dt><dd>A name=value pair Vercel injects into the build. Used for header codes, API keys, the production URL.</dd></div>
+      <div><dt>canonical URL</dt><dd>The single official URL for a page. Tells search engines which version to index when duplicates exist.</dd></div>
+      <div><dt>JSON-LD</dt><dd>Structured data Google reads to build rich SERP cards. Emitted as a <code>&lt;script type="application/ld+json"&gt;</code> on every page.</dd></div>
+      <div><dt>ISR</dt><dd>Incremental Static Regeneration — Vercel can rebuild a page periodically without a full deploy. We don't use it yet; all pages are fully static.</dd></div>
+      <div><dt>MD3</dt><dd>Material Design 3 — Google's design system. Both the live site and this guide use it.</dd></div>
+      <div><dt>hydration</dt><dd>React attaching event listeners to the pre-rendered HTML on first page load.</dd></div>
+    </dl>
+  </section>
+
+  <!-- ================= 9. DO NOT TOUCH ================= -->
+  <section id="do-not-touch">
+    <h2 class="headline-medium"><a href="#do-not-touch">9. Files NOT to touch (without Claude)</a></h2>
+    <dl class="kv">
+      <div><dt>src/app/layout.tsx</dt><dd>Wires global metadata, analytics scripts, and the search-console verification slot. Change behaviour via env vars instead.</dd></div>
+      <div><dt>src/components/md3/</dt><dd>Material Design 3 primitive components. Editing affects every page.</dd></div>
+      <div><dt>src/lib/site.ts / src/lib/schema.ts</dt><dd>Single source of truth for site config + JSON-LD generators. Touch only with care.</dd></div>
+      <div><dt>next.config.ts</dt><dd>Next.js config — Turbopack, redirects, headers. Small edits OK once you know what each block does; ask Claude first.</dd></div>
+      <div><dt>package.json / package-lock.json</dt><dd>Dependencies. Wrong edits break the build entirely.</dd></div>
+      <div><dt>.github/workflows/</dt><dd>CI workflows. Currently one file there pings Vercel on push. Don't edit unless you're replacing the deploy mechanism.</dd></div>
+      <div><dt>node_modules/ and .next/</dt><dd>Auto-generated. They're git-ignored anyway, but if you ever see them in a commit diff, something's wrong.</dd></div>
+    </dl>
+    <div class="note info">
+      <span class="icon" aria-hidden>ℹ</span>
+      <div class="body-medium">
+        When in doubt: open a fresh chat with Claude, paste the file path and what you want to change, and let me handle it. The whole point of this setup is that you describe what you want in English, not in code.
+      </div>
+    </div>
+  </section>
+
+  <hr>
+  <p class="meta-strip">
+    This is a local copy of the guide on your Desktop. Open by double-clicking. To update it,
+    ask Claude — the source content lives in your conversation history. The guide is no longer
+    available on the live site (it was set to noindex anyway).
+  </p>
+
+  </article>
+  </main>
+
+</div>
+
+</body>
+</html>
