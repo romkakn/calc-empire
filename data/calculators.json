@@ -8,63 +8,954 @@
     "author_url_path": "/about"
   },
   "categories": {
-    "finance": { "label": "Finance", "schemaCategory": "FinanceApplication" },
-    "stats": { "label": "Statistics", "schemaCategory": "EducationalApplication" },
-    "math": { "label": "Math", "schemaCategory": "EducationalApplication" },
-    "health": { "label": "Health", "schemaCategory": "HealthApplication" },
-    "construction": { "label": "Construction", "schemaCategory": "BusinessApplication" },
-    "payroll": { "label": "Payroll", "schemaCategory": "FinanceApplication" },
-    "betting": { "label": "Betting", "schemaCategory": "FinanceApplication" },
-    "education": { "label": "Education", "schemaCategory": "EducationalApplication" },
-    "pets": { "label": "Pets", "schemaCategory": "LifestyleApplication" },
-    "articles": { "label": "Guides", "schemaCategory": null }
+    "finance": {
+      "label": "Finance",
+      "schemaCategory": "FinanceApplication"
+    },
+    "stats": {
+      "label": "Statistics",
+      "schemaCategory": "EducationalApplication"
+    },
+    "math": {
+      "label": "Math",
+      "schemaCategory": "EducationalApplication"
+    },
+    "health": {
+      "label": "Health",
+      "schemaCategory": "HealthApplication"
+    },
+    "construction": {
+      "label": "Construction",
+      "schemaCategory": "BusinessApplication"
+    },
+    "payroll": {
+      "label": "Payroll",
+      "schemaCategory": "FinanceApplication"
+    },
+    "betting": {
+      "label": "Betting",
+      "schemaCategory": "FinanceApplication"
+    },
+    "education": {
+      "label": "Education",
+      "schemaCategory": "EducationalApplication"
+    },
+    "pets": {
+      "label": "Pets",
+      "schemaCategory": "LifestyleApplication"
+    },
+    "science": {
+      "label": "Science",
+      "schemaCategory": "EducationalApplication"
+    },
+    "articles": {
+      "label": "Guides",
+      "schemaCategory": null
+    }
   },
   "calculators": [
-    { "slug": "mortgage-recast-calculator", "title": "Mortgage Recast Calculator", "category": "finance", "tier": "S", "status": "live", "priority": 1, "description": "See your new monthly payment after a lump-sum recast. Amortization schedule, interest saved." },
-    { "slug": "no-vig-calculator", "title": "No-Vig Calculator", "category": "betting", "tier": "S", "status": "live", "priority": 2, "description": "Strip the sportsbook vig from any odds line to find the fair implied probability." },
-    { "slug": "dividend-calculator", "title": "Dividend Calculator", "category": "finance", "tier": "S", "status": "live", "priority": 3, "description": "Project dividend income with or without DRIP. Year-by-year compounding, total return shown." },
-    { "slug": "variance-calculator", "title": "Variance Calculator", "category": "stats", "tier": "S", "status": "live", "priority": 4, "description": "Sample and population variance from a data set, plus mean and standard deviation." },
-    { "slug": "asphalt-calculator", "title": "Asphalt Calculator", "category": "construction", "tier": "S", "status": "live", "priority": 5, "description": "Tons of hot-mix asphalt needed for a driveway or lot, with density and depth controls." },
-    { "slug": "mixed-number-calculator", "title": "Mixed Number Calculator", "category": "math", "tier": "S", "status": "live", "priority": 6, "description": "Add, subtract, multiply, divide mixed numbers and improper fractions. Reduced result shown." },
-    { "slug": "paycheck-calculator", "title": "Paycheck Calculator", "category": "payroll", "tier": "S", "status": "live", "priority": 7, "description": "Take-home pay after federal, FICA, state, and pre-tax. 50-state pages linked.", "programmatic": { "type": "us-state", "states": ["al","ak","az","ar","ca","co","ct","de","fl","ga","hi","id","il","in","ia","ks","ky","la","me","md","ma","mi","mn","ms","mo","mt","ne","nv","nh","nj","nm","ny","nc","nd","oh","ok","or","pa","ri","sc","sd","tn","tx","ut","vt","va","wa","wv","wi","wy"] } },
-    { "slug": "a1c-calculator", "title": "A1C Calculator", "category": "health", "tier": "A", "status": "live", "priority": 8, "description": "Convert A1C to estimated average glucose (eAG) in mg/dL or mmol/L. ADA-endorsed formula." },
-    { "slug": "crcl-calculator", "title": "Creatinine Clearance Calculator", "category": "health", "tier": "A", "status": "live", "priority": 9, "description": "Cockcroft-Gault for drug dosing or CKD-EPI 2021 for kidney-function staging. KDIGO band." },
-    { "slug": "options-profit-calculator", "title": "Options Profit Calculator", "category": "finance", "tier": "A", "status": "live", "priority": 10, "description": "Long/short call & put P&L at expiration. Native payoff chart, breakeven, max profit/loss." },
-    { "slug": "chronological-age-calculator", "title": "Chronological Age Calculator", "category": "health", "tier": "A", "status": "live", "priority": 11, "description": "Exact age in years, months, days, hours from any date of birth to today." },
-    { "slug": "weighted-grade-calculator", "title": "Weighted Grade Calculator", "category": "education", "tier": "S", "status": "live", "priority": 12, "description": "Final course grade from weighted categories. Target-grade calculator for the last assignment." },
-    { "slug": "money-market-calculator", "title": "Money Market Calculator", "category": "finance", "tier": "S", "status": "live", "priority": 13, "description": "Project money-market balance with APY, monthly contribution, daily compounding." },
-    { "slug": "square-footage-calculator", "title": "Square Footage Calculator", "category": "construction", "tier": "S", "status": "live", "priority": 14, "description": "Sq ft of a room from length × width in feet, inches, or meters. Multi-room totals." },
-    { "slug": "standard-deviation-calculator", "title": "Standard Deviation Calculator", "category": "stats", "tier": "S", "status": "live", "priority": 15, "description": "Sample and population standard deviation, variance, and mean from a list of numbers." },
-    { "slug": "dog-age-calculator", "title": "Dog Age Calculator", "category": "pets", "tier": "S", "status": "live", "priority": 16, "description": "Dog years to human years via the 2019 epigenetic-clock formula. Compares to classic 7× rule." },
-    { "slug": "median-calculator", "title": "Median Calculator", "category": "stats", "tier": "S", "status": "live", "priority": 17, "description": "Median, quartiles (Q1, Q3), and IQR of any number set. Sorted view shown." },
-    { "slug": "steps-to-miles-calculator", "title": "Steps to Miles Calculator", "category": "health", "tier": "S", "status": "live", "priority": 18, "description": "Steps to miles using height-based stride length. Or work backwards from a mile goal." },
-    { "slug": "average-calculator", "title": "Average Calculator", "category": "stats", "tier": "S", "status": "live", "priority": 19, "description": "Mean, median, and mode of any list of numbers. Knows when to use each." },
-    { "slug": "fractions-calculator", "title": "Fractions Calculator", "category": "math", "tier": "S", "status": "live", "priority": 20, "description": "Add, subtract, multiply, divide two fractions. Reduced + mixed-number form, step by step." },
-    { "slug": "height-calculator", "title": "Height Calculator", "category": "health", "tier": "A", "status": "live", "priority": 21, "description": "Predict a child's adult height with the mid-parental method. Inch and centimeter support." },
-    { "slug": "quadratic-formula-calculator", "title": "Quadratic Formula Calculator", "category": "math", "tier": "A", "status": "live", "priority": 22, "description": "Solve ax² + bx + c = 0. Real or complex roots, discriminant, and vertex of the parabola." },
-    { "slug": "rounding-calculator", "title": "Rounding Calculator", "category": "math", "tier": "A", "status": "live", "priority": 23, "description": "Round to any decimal place — nearest, up, down, or banker's (round-half-to-even)." },
-    { "slug": "cumulative-gpa-calculator", "title": "Cumulative GPA Calculator", "category": "education", "tier": "A", "status": "live", "priority": 24, "description": "Roll up semester GPAs by credit hours. Plus the GPA you need next term to hit a target." },
-    { "slug": "decimal-fraction-converter", "title": "Decimal to Fraction Converter", "category": "math", "tier": "A", "status": "live", "priority": 25, "description": "Convert decimals to reduced fractions and back. Handles repeating decimals." },
-    { "slug": "tip-calculator", "title": "Tip Calculator", "category": "finance", "tier": "A", "status": "live", "priority": 26, "description": "Split a restaurant bill, calculate gratuity, US tip norms built in. Tax-inclusive toggle." },
-    { "slug": "slope-calculator", "title": "Slope Calculator", "category": "math", "tier": "A", "status": "live", "priority": 27, "description": "Slope from two points, y-intercept, and the line equation y = mx + b." },
-    { "slug": "max-heart-rate-calculator", "title": "Max Heart Rate Calculator", "category": "health", "tier": "A", "status": "live", "priority": 28, "description": "Max HR via Fox, Tanaka, or Gulati. Five training zones in bpm — endurance to VO2 max." },
-    { "slug": "period-calculator", "title": "Period Calculator", "category": "health", "tier": "A", "status": "live", "priority": 29, "description": "Next period start, ovulation day, and fertile window from your last period and cycle length." },
-    { "slug": "cubic-yard-calculator", "title": "Cubic Yard Calculator", "category": "construction", "tier": "A", "status": "live", "priority": 30, "description": "Cubic yards of concrete, mulch, or topsoil from L × W × D. Rectangle or circle." },
-    { "slug": "percent-off-calculator", "title": "Percent Off Calculator", "category": "finance", "tier": "A", "status": "live", "priority": 31, "description": "Sale price after a percent-off discount, plus the dollars saved and the percent paid." },
-    { "slug": "discount-calculator", "title": "Discount Calculator", "category": "finance", "tier": "A", "status": "live", "priority": 32, "description": "Final price after one or two stacked discounts. Percent off and dollar off supported." },
-    { "slug": "high-school-gpa-calculator", "title": "High School GPA Calculator", "category": "education", "tier": "A", "status": "live", "priority": 33, "description": "Letter grades + credit hours to a 4.0 GPA. Honors/AP/IB weighted boost optional." },
-    { "slug": "square-root-calculator", "title": "Square Root Calculator", "category": "math", "tier": "A", "status": "live", "priority": 34, "description": "Square root with 10-digit precision and simplified radical form (e.g. 5√2)." },
-    { "slug": "long-division-calculator", "title": "Long Division Calculator", "category": "math", "tier": "A", "status": "live", "priority": 35, "description": "Quotient and remainder with the full step-by-step long-division view." },
-    { "slug": "factor-calculator", "title": "Factor Calculator", "category": "math", "tier": "A", "status": "live", "priority": 36, "description": "Every factor and the prime factorization of any positive integer. Flags primes and perfect squares." },
-    { "slug": "protein-intake-calculator", "title": "Protein Intake Calculator", "category": "health", "tier": "A", "status": "live", "priority": 37, "description": "Daily protein grams from body weight, activity level, and goal (cut, maintain, bulk)." },
-    { "slug": "scientific-notation-calculator", "title": "Scientific Notation Calculator", "category": "math", "tier": "A", "status": "live", "priority": 38, "description": "Convert numbers to scientific notation a × 10ⁿ and back. Engineering notation supported." },
-    { "slug": "p-value-calculator", "title": "P-Value Calculator", "category": "stats", "tier": "A", "status": "live", "priority": 39, "description": "Z-score to one- or two-tailed p-value. Plain-English interpretation of significance." },
-    { "slug": "stock-profit-calculator", "title": "Stock Profit Calculator", "category": "finance", "tier": "A", "status": "live", "priority": 40, "description": "Profit, return percent, and breakeven price on a stock trade. Optional buy/sell fees." },
-    { "slug": "capital-gains-tax-calculator", "title": "Capital Gains Tax Calculator", "category": "finance", "tier": "A", "status": "live", "priority": 41, "description": "Federal capital-gains tax on a sale. Short-term vs long-term brackets, NIIT included." },
-    { "slug": "gravel-calculator", "title": "Gravel Calculator", "category": "construction", "tier": "A", "status": "live", "priority": 42, "description": "Cubic yards and US tons of gravel for a driveway, walkway, or base. Density override." }
+    {
+      "slug": "mortgage-recast-calculator",
+      "title": "Mortgage Recast Calculator",
+      "category": "finance",
+      "tier": "S",
+      "status": "live",
+      "priority": 1,
+      "description": "See your new monthly payment after a lump-sum recast. Amortization schedule, interest saved."
+    },
+    {
+      "slug": "no-vig-calculator",
+      "title": "No-Vig Calculator",
+      "category": "betting",
+      "tier": "S",
+      "status": "live",
+      "priority": 2,
+      "description": "Strip the sportsbook vig from any odds line to find the fair implied probability."
+    },
+    {
+      "slug": "dividend-calculator",
+      "title": "Dividend Calculator",
+      "category": "finance",
+      "tier": "S",
+      "status": "live",
+      "priority": 3,
+      "description": "Project dividend income with or without DRIP. Year-by-year compounding, total return shown."
+    },
+    {
+      "slug": "variance-calculator",
+      "title": "Variance Calculator",
+      "category": "stats",
+      "tier": "S",
+      "status": "live",
+      "priority": 4,
+      "description": "Sample and population variance from a data set, plus mean and standard deviation."
+    },
+    {
+      "slug": "asphalt-calculator",
+      "title": "Asphalt Calculator",
+      "category": "construction",
+      "tier": "S",
+      "status": "live",
+      "priority": 5,
+      "description": "Tons of hot-mix asphalt needed for a driveway or lot, with density and depth controls."
+    },
+    {
+      "slug": "mixed-number-calculator",
+      "title": "Mixed Number Calculator",
+      "category": "math",
+      "tier": "S",
+      "status": "live",
+      "priority": 6,
+      "description": "Add, subtract, multiply, divide mixed numbers and improper fractions. Reduced result shown."
+    },
+    {
+      "slug": "paycheck-calculator",
+      "title": "Paycheck Calculator",
+      "category": "payroll",
+      "tier": "S",
+      "status": "live",
+      "priority": 7,
+      "description": "Take-home pay after federal, FICA, state, and pre-tax. 50-state pages linked.",
+      "programmatic": {
+        "type": "us-state",
+        "states": [
+          "al",
+          "ak",
+          "az",
+          "ar",
+          "ca",
+          "co",
+          "ct",
+          "de",
+          "fl",
+          "ga",
+          "hi",
+          "id",
+          "il",
+          "in",
+          "ia",
+          "ks",
+          "ky",
+          "la",
+          "me",
+          "md",
+          "ma",
+          "mi",
+          "mn",
+          "ms",
+          "mo",
+          "mt",
+          "ne",
+          "nv",
+          "nh",
+          "nj",
+          "nm",
+          "ny",
+          "nc",
+          "nd",
+          "oh",
+          "ok",
+          "or",
+          "pa",
+          "ri",
+          "sc",
+          "sd",
+          "tn",
+          "tx",
+          "ut",
+          "vt",
+          "va",
+          "wa",
+          "wv",
+          "wi",
+          "wy"
+        ]
+      }
+    },
+    {
+      "slug": "a1c-calculator",
+      "title": "A1C Calculator",
+      "category": "health",
+      "tier": "A",
+      "status": "live",
+      "priority": 8,
+      "description": "Convert A1C to estimated average glucose (eAG) in mg/dL or mmol/L. ADA-endorsed formula."
+    },
+    {
+      "slug": "crcl-calculator",
+      "title": "Creatinine Clearance Calculator",
+      "category": "health",
+      "tier": "A",
+      "status": "live",
+      "priority": 9,
+      "description": "Cockcroft-Gault for drug dosing or CKD-EPI 2021 for kidney-function staging. KDIGO band."
+    },
+    {
+      "slug": "options-profit-calculator",
+      "title": "Options Profit Calculator",
+      "category": "finance",
+      "tier": "A",
+      "status": "live",
+      "priority": 10,
+      "description": "Long/short call & put P&L at expiration. Native payoff chart, breakeven, max profit/loss."
+    },
+    {
+      "slug": "chronological-age-calculator",
+      "title": "Chronological Age Calculator",
+      "category": "health",
+      "tier": "A",
+      "status": "live",
+      "priority": 11,
+      "description": "Exact age in years, months, days, hours from any date of birth to today."
+    },
+    {
+      "slug": "weighted-grade-calculator",
+      "title": "Weighted Grade Calculator",
+      "category": "education",
+      "tier": "S",
+      "status": "live",
+      "priority": 12,
+      "description": "Final course grade from weighted categories. Target-grade calculator for the last assignment."
+    },
+    {
+      "slug": "money-market-calculator",
+      "title": "Money Market Calculator",
+      "category": "finance",
+      "tier": "S",
+      "status": "live",
+      "priority": 13,
+      "description": "Project money-market balance with APY, monthly contribution, daily compounding."
+    },
+    {
+      "slug": "square-footage-calculator",
+      "title": "Square Footage Calculator",
+      "category": "construction",
+      "tier": "S",
+      "status": "live",
+      "priority": 14,
+      "description": "Sq ft of a room from length × width in feet, inches, or meters. Multi-room totals."
+    },
+    {
+      "slug": "standard-deviation-calculator",
+      "title": "Standard Deviation Calculator",
+      "category": "stats",
+      "tier": "S",
+      "status": "live",
+      "priority": 15,
+      "description": "Sample and population standard deviation, variance, and mean from a list of numbers."
+    },
+    {
+      "slug": "dog-age-calculator",
+      "title": "Dog Age Calculator",
+      "category": "pets",
+      "tier": "S",
+      "status": "live",
+      "priority": 16,
+      "description": "Dog years to human years via the 2019 epigenetic-clock formula. Compares to classic 7× rule."
+    },
+    {
+      "slug": "median-calculator",
+      "title": "Median Calculator",
+      "category": "stats",
+      "tier": "S",
+      "status": "live",
+      "priority": 17,
+      "description": "Median, quartiles (Q1, Q3), and IQR of any number set. Sorted view shown."
+    },
+    {
+      "slug": "steps-to-miles-calculator",
+      "title": "Steps to Miles Calculator",
+      "category": "health",
+      "tier": "S",
+      "status": "live",
+      "priority": 18,
+      "description": "Steps to miles using height-based stride length. Or work backwards from a mile goal."
+    },
+    {
+      "slug": "average-calculator",
+      "title": "Average Calculator",
+      "category": "stats",
+      "tier": "S",
+      "status": "live",
+      "priority": 19,
+      "description": "Mean, median, and mode of any list of numbers. Knows when to use each."
+    },
+    {
+      "slug": "fractions-calculator",
+      "title": "Fractions Calculator",
+      "category": "math",
+      "tier": "S",
+      "status": "live",
+      "priority": 20,
+      "description": "Add, subtract, multiply, divide two fractions. Reduced + mixed-number form, step by step."
+    },
+    {
+      "slug": "height-calculator",
+      "title": "Height Calculator",
+      "category": "health",
+      "tier": "A",
+      "status": "live",
+      "priority": 21,
+      "description": "Predict a child's adult height with the mid-parental method. Inch and centimeter support."
+    },
+    {
+      "slug": "quadratic-formula-calculator",
+      "title": "Quadratic Formula Calculator",
+      "category": "math",
+      "tier": "A",
+      "status": "live",
+      "priority": 22,
+      "description": "Solve ax² + bx + c = 0. Real or complex roots, discriminant, and vertex of the parabola."
+    },
+    {
+      "slug": "rounding-calculator",
+      "title": "Rounding Calculator",
+      "category": "math",
+      "tier": "A",
+      "status": "live",
+      "priority": 23,
+      "description": "Round to any decimal place — nearest, up, down, or banker's (round-half-to-even)."
+    },
+    {
+      "slug": "cumulative-gpa-calculator",
+      "title": "Cumulative GPA Calculator",
+      "category": "education",
+      "tier": "A",
+      "status": "live",
+      "priority": 24,
+      "description": "Roll up semester GPAs by credit hours. Plus the GPA you need next term to hit a target."
+    },
+    {
+      "slug": "decimal-fraction-converter",
+      "title": "Decimal to Fraction Converter",
+      "category": "math",
+      "tier": "A",
+      "status": "live",
+      "priority": 25,
+      "description": "Convert decimals to reduced fractions and back. Handles repeating decimals."
+    },
+    {
+      "slug": "tip-calculator",
+      "title": "Tip Calculator",
+      "category": "finance",
+      "tier": "A",
+      "status": "live",
+      "priority": 26,
+      "description": "Split a restaurant bill, calculate gratuity, US tip norms built in. Tax-inclusive toggle."
+    },
+    {
+      "slug": "slope-calculator",
+      "title": "Slope Calculator",
+      "category": "math",
+      "tier": "A",
+      "status": "live",
+      "priority": 27,
+      "description": "Slope from two points, y-intercept, and the line equation y = mx + b."
+    },
+    {
+      "slug": "max-heart-rate-calculator",
+      "title": "Max Heart Rate Calculator",
+      "category": "health",
+      "tier": "A",
+      "status": "live",
+      "priority": 28,
+      "description": "Max HR via Fox, Tanaka, or Gulati. Five training zones in bpm — endurance to VO2 max."
+    },
+    {
+      "slug": "period-calculator",
+      "title": "Period Calculator",
+      "category": "health",
+      "tier": "A",
+      "status": "live",
+      "priority": 29,
+      "description": "Next period start, ovulation day, and fertile window from your last period and cycle length."
+    },
+    {
+      "slug": "cubic-yard-calculator",
+      "title": "Cubic Yard Calculator",
+      "category": "construction",
+      "tier": "A",
+      "status": "live",
+      "priority": 30,
+      "description": "Cubic yards of concrete, mulch, or topsoil from L × W × D. Rectangle or circle."
+    },
+    {
+      "slug": "percent-off-calculator",
+      "title": "Percent Off Calculator",
+      "category": "finance",
+      "tier": "A",
+      "status": "live",
+      "priority": 31,
+      "description": "Sale price after a percent-off discount, plus the dollars saved and the percent paid."
+    },
+    {
+      "slug": "discount-calculator",
+      "title": "Discount Calculator",
+      "category": "finance",
+      "tier": "A",
+      "status": "live",
+      "priority": 32,
+      "description": "Final price after one or two stacked discounts. Percent off and dollar off supported."
+    },
+    {
+      "slug": "high-school-gpa-calculator",
+      "title": "High School GPA Calculator",
+      "category": "education",
+      "tier": "A",
+      "status": "live",
+      "priority": 33,
+      "description": "Letter grades + credit hours to a 4.0 GPA. Honors/AP/IB weighted boost optional."
+    },
+    {
+      "slug": "square-root-calculator",
+      "title": "Square Root Calculator",
+      "category": "math",
+      "tier": "A",
+      "status": "live",
+      "priority": 34,
+      "description": "Square root with 10-digit precision and simplified radical form (e.g. 5√2)."
+    },
+    {
+      "slug": "long-division-calculator",
+      "title": "Long Division Calculator",
+      "category": "math",
+      "tier": "A",
+      "status": "live",
+      "priority": 35,
+      "description": "Quotient and remainder with the full step-by-step long-division view."
+    },
+    {
+      "slug": "factor-calculator",
+      "title": "Factor Calculator",
+      "category": "math",
+      "tier": "A",
+      "status": "live",
+      "priority": 36,
+      "description": "Every factor and the prime factorization of any positive integer. Flags primes and perfect squares."
+    },
+    {
+      "slug": "protein-intake-calculator",
+      "title": "Protein Intake Calculator",
+      "category": "health",
+      "tier": "A",
+      "status": "live",
+      "priority": 37,
+      "description": "Daily protein grams from body weight, activity level, and goal (cut, maintain, bulk)."
+    },
+    {
+      "slug": "scientific-notation-calculator",
+      "title": "Scientific Notation Calculator",
+      "category": "math",
+      "tier": "A",
+      "status": "live",
+      "priority": 38,
+      "description": "Convert numbers to scientific notation a × 10ⁿ and back. Engineering notation supported."
+    },
+    {
+      "slug": "p-value-calculator",
+      "title": "P-Value Calculator",
+      "category": "stats",
+      "tier": "A",
+      "status": "live",
+      "priority": 39,
+      "description": "Z-score to one- or two-tailed p-value. Plain-English interpretation of significance."
+    },
+    {
+      "slug": "stock-profit-calculator",
+      "title": "Stock Profit Calculator",
+      "category": "finance",
+      "tier": "A",
+      "status": "live",
+      "priority": 40,
+      "description": "Profit, return percent, and breakeven price on a stock trade. Optional buy/sell fees."
+    },
+    {
+      "slug": "capital-gains-tax-calculator",
+      "title": "Capital Gains Tax Calculator",
+      "category": "finance",
+      "tier": "A",
+      "status": "live",
+      "priority": 41,
+      "description": "Federal capital-gains tax on a sale. Short-term vs long-term brackets, NIIT included."
+    },
+    {
+      "slug": "gravel-calculator",
+      "title": "Gravel Calculator",
+      "category": "construction",
+      "tier": "A",
+      "status": "live",
+      "priority": 42,
+      "description": "Cubic yards and US tons of gravel for a driveway, walkway, or base. Density override."
+    },
+    {
+      "slug": "derivative-calculator",
+      "title": "Derivative Calculator",
+      "category": "math",
+      "tier": "S",
+      "status": "live",
+      "priority": 51,
+      "description": "Take the derivative of polynomials, exponentials, logs, sin/cos. Step-by-step rules."
+    },
+    {
+      "slug": "integral-calculator",
+      "title": "Integral Calculator",
+      "category": "math",
+      "tier": "S",
+      "status": "live",
+      "priority": 52,
+      "description": "Antiderivative for polynomials, exponentials, basic trig. Definite and indefinite."
+    },
+    {
+      "slug": "limit-calculator",
+      "title": "Limit Calculator",
+      "category": "math",
+      "tier": "A",
+      "status": "live",
+      "priority": 53,
+      "description": "Limits of polynomials, rationals, trig as x approaches a value or infinity."
+    },
+    {
+      "slug": "division-calculator",
+      "title": "Division Calculator",
+      "category": "math",
+      "tier": "A",
+      "status": "live",
+      "priority": 54,
+      "description": "Integer and decimal division with quotient, remainder, and recurring digits."
+    },
+    {
+      "slug": "simplify-calculator",
+      "title": "Simplify Calculator",
+      "category": "math",
+      "tier": "A",
+      "status": "live",
+      "priority": 55,
+      "description": "Simplify algebraic expressions, combine like terms, distribute, reduce fractions."
+    },
+    {
+      "slug": "rref-calculator",
+      "title": "RREF Calculator",
+      "category": "math",
+      "tier": "S",
+      "status": "live",
+      "priority": 56,
+      "description": "Row-reduce any matrix to reduced row echelon form. Step-by-step Gauss-Jordan."
+    },
+    {
+      "slug": "gcf-calculator",
+      "title": "GCF Calculator",
+      "category": "math",
+      "tier": "S",
+      "status": "live",
+      "priority": 57,
+      "description": "Greatest common factor of any number set. Euclidean algorithm shown."
+    },
+    {
+      "slug": "surface-area-calculator",
+      "title": "Surface Area Calculator",
+      "category": "math",
+      "tier": "A",
+      "status": "live",
+      "priority": 58,
+      "description": "Surface area of cube, sphere, cylinder, cone, pyramid, rectangular prism."
+    },
+    {
+      "slug": "arc-length-calculator",
+      "title": "Arc Length Calculator",
+      "category": "math",
+      "tier": "A",
+      "status": "live",
+      "priority": 59,
+      "description": "Length of a circular arc from radius and angle (degrees or radians)."
+    },
+    {
+      "slug": "trigonometry-calculator",
+      "title": "Trigonometry Calculator",
+      "category": "math",
+      "tier": "A",
+      "status": "live",
+      "priority": 60,
+      "description": "sin, cos, tan, and inverses. Degrees or radians, right triangle solver."
+    },
+    {
+      "slug": "pythagorean-theorem-calculator",
+      "title": "Pythagorean Theorem Calculator",
+      "category": "math",
+      "tier": "S",
+      "status": "live",
+      "priority": 61,
+      "description": "Solve a^2 + b^2 = c^2 for any missing side of a right triangle."
+    },
+    {
+      "slug": "percent-error-calculator",
+      "title": "Percent Error Calculator",
+      "category": "math",
+      "tier": "S",
+      "status": "live",
+      "priority": 62,
+      "description": "Percent error from experimental and theoretical values. Standard physics formula."
+    },
+    {
+      "slug": "percent-decrease-calculator",
+      "title": "Percent Decrease Calculator",
+      "category": "math",
+      "tier": "S",
+      "status": "live",
+      "priority": 63,
+      "description": "Percent decrease (or increase) between two numbers. Shows absolute change too."
+    },
+    {
+      "slug": "circumference-calculator",
+      "title": "Circumference Calculator",
+      "category": "math",
+      "tier": "S",
+      "status": "live",
+      "priority": 64,
+      "description": "Circumference and area of a circle from radius, diameter, or area."
+    },
+    {
+      "slug": "volume-calculator",
+      "title": "Volume Calculator",
+      "category": "math",
+      "tier": "A",
+      "status": "live",
+      "priority": 65,
+      "description": "Volume of cube, sphere, cylinder, cone, pyramid, rectangular prism."
+    },
+    {
+      "slug": "angle-calculator",
+      "title": "Angle Calculator",
+      "category": "math",
+      "tier": "A",
+      "status": "live",
+      "priority": 66,
+      "description": "Triangle angles and sides via law of sines / law of cosines. Right-triangle mode."
+    },
+    {
+      "slug": "linear-equation-calculator",
+      "title": "Linear Equation Calculator",
+      "category": "math",
+      "tier": "S",
+      "status": "live",
+      "priority": 67,
+      "description": "Solve y = mx + b from two points or slope-intercept. Graphs the line."
+    },
+    {
+      "slug": "interpolation-calculator",
+      "title": "Interpolation Calculator",
+      "category": "math",
+      "tier": "A",
+      "status": "live",
+      "priority": 68,
+      "description": "Linear interpolation between two points. Solve for y at any x."
+    },
+    {
+      "slug": "z-score-calculator",
+      "title": "Z-Score Calculator",
+      "category": "stats",
+      "tier": "A",
+      "status": "live",
+      "priority": 69,
+      "description": "Z-score from a raw value, mean, and standard deviation. Plus z-to-probability."
+    },
+    {
+      "slug": "linear-regression-calculator",
+      "title": "Linear Regression Calculator",
+      "category": "stats",
+      "tier": "A",
+      "status": "live",
+      "priority": 70,
+      "description": "Best-fit line from x,y data — slope, intercept, R-squared, residuals."
+    },
+    {
+      "slug": "balancing-equations-calculator",
+      "title": "Balancing Equations Calculator",
+      "category": "science",
+      "tier": "S",
+      "status": "live",
+      "priority": 71,
+      "description": "Balance any chemical equation. Mass and charge conservation, smallest integer coefficients."
+    },
+    {
+      "slug": "ohms-law-calculator",
+      "title": "Ohms Law Calculator",
+      "category": "science",
+      "tier": "A",
+      "status": "live",
+      "priority": 72,
+      "description": "V = IR. Solve for voltage, current, resistance, or power from any two values."
+    },
+    {
+      "slug": "dilution-calculator",
+      "title": "Dilution Calculator",
+      "category": "science",
+      "tier": "A",
+      "status": "live",
+      "priority": 73,
+      "description": "M1V1 = M2V2 for solution dilution. Stock concentration, target concentration, target volume."
+    },
+    {
+      "slug": "gold-calculator",
+      "title": "Gold Calculator",
+      "category": "finance",
+      "tier": "S",
+      "status": "live",
+      "priority": 74,
+      "description": "Value of gold by weight and purity (10k, 14k, 18k, 22k, 24k). Live spot price input."
+    },
+    {
+      "slug": "gross-margin-calculator",
+      "title": "Gross Margin Calculator",
+      "category": "finance",
+      "tier": "A",
+      "status": "live",
+      "priority": 75,
+      "description": "Gross margin and markup from cost and selling price, or work back from a target margin."
+    },
+    {
+      "slug": "time-value-of-money-calculator",
+      "title": "Time Value of Money Calculator",
+      "category": "finance",
+      "tier": "A",
+      "status": "live",
+      "priority": 76,
+      "description": "Present value, future value, payment, rate, or periods. Standard TVM equation."
+    },
+    {
+      "slug": "ira-calculator",
+      "title": "IRA Calculator",
+      "category": "finance",
+      "tier": "A",
+      "status": "live",
+      "priority": 77,
+      "description": "Traditional and Roth IRA growth. Annual contribution, expected return, retirement age."
+    },
+    {
+      "slug": "savings-bond-calculator",
+      "title": "Savings Bond Calculator",
+      "category": "finance",
+      "tier": "A",
+      "status": "live",
+      "priority": 78,
+      "description": "EE and I bond value at maturity. Treasury rates, compounding semi-annual."
+    },
+    {
+      "slug": "pay-raise-calculator",
+      "title": "Pay Raise Calculator",
+      "category": "finance",
+      "tier": "S",
+      "status": "live",
+      "priority": 79,
+      "description": "Net pay change after a raise. Bracket, deductions, and effective rate adjusted."
+    },
+    {
+      "slug": "cpm-calculator",
+      "title": "CPM Calculator",
+      "category": "finance",
+      "tier": "A",
+      "status": "live",
+      "priority": 80,
+      "description": "Cost per mille (1000 impressions) for ad spend. Reverse-solve impressions or budget."
+    },
+    {
+      "slug": "home-insurance-calculator",
+      "title": "Home Insurance Calculator",
+      "category": "finance",
+      "tier": "A",
+      "status": "live",
+      "priority": 81,
+      "description": "Premium estimate from dwelling coverage, deductible, location risk, and credit tier."
+    },
+    {
+      "slug": "prorated-rent-calculator",
+      "title": "Prorated Rent Calculator",
+      "category": "finance",
+      "tier": "S",
+      "status": "live",
+      "priority": 82,
+      "description": "Prorated rent for a partial month — by days, weeks, or banker month."
+    },
+    {
+      "slug": "overtime-calculator",
+      "title": "Overtime Calculator",
+      "category": "finance",
+      "tier": "A",
+      "status": "live",
+      "priority": 83,
+      "description": "FLSA overtime — base hours, OT hours, time-and-a-half or double-time."
+    },
+    {
+      "slug": "1099-tax-calculator",
+      "title": "1099 Tax Calculator",
+      "category": "finance",
+      "tier": "A",
+      "status": "live",
+      "priority": 84,
+      "description": "Self-employment tax + federal income tax estimate for 1099 contractors. Quarterly estimates."
+    },
+    {
+      "slug": "agi-calculator",
+      "title": "AGI Calculator",
+      "category": "finance",
+      "tier": "A",
+      "status": "live",
+      "priority": 85,
+      "description": "Adjusted gross income from gross income and above-the-line deductions per IRS Form 1040."
+    },
+    {
+      "slug": "body-shape-calculator",
+      "title": "Body Shape Calculator",
+      "category": "health",
+      "tier": "A",
+      "status": "live",
+      "priority": 86,
+      "description": "Body shape (hourglass, pear, apple, rectangle, inverted triangle) from bust, waist, hips."
+    },
+    {
+      "slug": "target-heart-rate-calculator",
+      "title": "Target Heart Rate Calculator",
+      "category": "health",
+      "tier": "S",
+      "status": "live",
+      "priority": 87,
+      "description": "Target HR zones via Karvonen and percent of max. Resting HR refinement."
+    },
+    {
+      "slug": "army-body-fat-calculator",
+      "title": "Army Body Fat Calculator",
+      "category": "health",
+      "tier": "A",
+      "status": "live",
+      "priority": 88,
+      "description": "Body fat per AR 600-9 tape test. Height + neck + waist (+ hip for women)."
+    },
+    {
+      "slug": "water-intake-calculator",
+      "title": "Water Intake Calculator",
+      "category": "health",
+      "tier": "A",
+      "status": "live",
+      "priority": 89,
+      "description": "Daily water in oz/L from body weight, activity, and climate."
+    },
+    {
+      "slug": "abv-calculator",
+      "title": "ABV Calculator",
+      "category": "health",
+      "tier": "A",
+      "status": "live",
+      "priority": 90,
+      "description": "Alcohol by volume from original and final gravity. Brewing standard."
+    },
+    {
+      "slug": "rvu-calculator",
+      "title": "RVU Calculator",
+      "category": "health",
+      "tier": "A",
+      "status": "live",
+      "priority": 91,
+      "description": "Medicare RVU to dollars. Work, PE, MP RVUs and the conversion factor."
+    },
+    {
+      "slug": "mulch-calculator",
+      "title": "Mulch Calculator",
+      "category": "construction",
+      "tier": "S",
+      "status": "live",
+      "priority": 92,
+      "description": "Cubic yards and bags of mulch from L x W x depth. Hardwood, cypress, rubber densities."
+    },
+    {
+      "slug": "board-foot-calculator",
+      "title": "Board Foot Calculator",
+      "category": "construction",
+      "tier": "S",
+      "status": "live",
+      "priority": 93,
+      "description": "Board feet from thickness, width, length, and quantity. Hardwood lumber standard."
+    },
+    {
+      "slug": "stone-calculator",
+      "title": "Stone Calculator",
+      "category": "construction",
+      "tier": "A",
+      "status": "live",
+      "priority": 94,
+      "description": "Cubic yards and US tons of stone for a driveway or wall. Density override."
+    },
+    {
+      "slug": "stair-calculator",
+      "title": "Stair Calculator",
+      "category": "construction",
+      "tier": "A",
+      "status": "live",
+      "priority": 95,
+      "description": "Stringer length, riser height, tread depth from total rise. IRC code limits flagged."
+    },
+    {
+      "slug": "btu-calculator",
+      "title": "BTU Calculator",
+      "category": "construction",
+      "tier": "A",
+      "status": "live",
+      "priority": 96,
+      "description": "Heating and cooling BTU/h for a room from square footage, insulation, sun exposure."
+    },
+    {
+      "slug": "ap-score-calculator",
+      "title": "AP Score Calculator",
+      "category": "education",
+      "tier": "S",
+      "status": "live",
+      "priority": 97,
+      "description": "AP exam composite score from MCQ and FRQ raw scores. 1-5 scale per College Board."
+    },
+    {
+      "slug": "sat-score-calculator",
+      "title": "SAT Score Calculator",
+      "category": "education",
+      "tier": "A",
+      "status": "live",
+      "priority": 98,
+      "description": "SAT composite from EBRW and Math raw scores. College Board scaled-score lookup."
+    },
+    {
+      "slug": "semester-grade-calculator",
+      "title": "Semester Grade Calculator",
+      "category": "education",
+      "tier": "S",
+      "status": "live",
+      "priority": 99,
+      "description": "Final semester grade from term grades and exam weight. Target-grade solver."
+    },
+    {
+      "slug": "puppy-weight-calculator",
+      "title": "Puppy Weight Calculator",
+      "category": "pets",
+      "tier": "A",
+      "status": "live",
+      "priority": 100,
+      "description": "Adult weight prediction from puppy age + current weight. Small/medium/large/giant."
+    }
   ],
   "articles": [
-    { "slug": "best-free-ai-video-generator-2026", "title": "Best Free AI Video Generator (2026)", "category": "articles", "tier": "content", "status": "planned", "priority": 50, "description": "Side-by-side review of the top free AI video tools, tested in 2026." },
-    { "slug": "best-ai-humanizer", "title": "Best AI Humanizer", "category": "articles", "tier": "content", "status": "planned", "priority": 51, "description": "Which AI humanizers actually pass detectors. Scored on tone, fidelity, and cost." }
+    {
+      "slug": "best-free-ai-video-generator-2026",
+      "title": "Best Free AI Video Generator (2026)",
+      "category": "articles",
+      "tier": "content",
+      "status": "planned",
+      "priority": 50,
+      "description": "Side-by-side review of the top free AI video tools, tested in 2026."
+    },
+    {
+      "slug": "best-ai-humanizer",
+      "title": "Best AI Humanizer",
+      "category": "articles",
+      "tier": "content",
+      "status": "planned",
+      "priority": 51,
+      "description": "Which AI humanizers actually pass detectors. Scored on tone, fidelity, and cost."
+    }
   ]
 }
