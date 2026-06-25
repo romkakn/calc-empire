@@ -7,7 +7,14 @@ import { SITE_URL, CATEGORIES } from "@/lib/site";
 // index. So we hand-roll the index here, listing every child id we emit
 // from generateSitemaps in app/sitemap.ts. Keep these two files in sync.
 
-const CHILD_IDS = ["main", ...Object.keys(CATEGORIES)];
+// Articles share topic categories (finance/math/health/...) and already
+// appear in their topic sitemap. A separate articles.xml would be empty
+// because no article carries category === "articles" — GSC flags this as
+// "0 URLs / 1 error". Drop the articles child here; keep the topic ones.
+const CHILD_IDS = [
+  "main",
+  ...Object.keys(CATEGORIES).filter((id) => id !== "articles"),
+];
 
 export const dynamic = "force-static";
 export const revalidate = false;

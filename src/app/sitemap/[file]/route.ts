@@ -19,7 +19,11 @@ type UrlEntry = {
   priority: number;
 };
 
-const CATEGORY_IDS = Object.keys(CATEGORIES);
+// "articles" is omitted intentionally: articles share topic categories
+// (finance/math/health/...) and already surface in those topic sitemaps.
+// Keeping articles in VALID_IDS would build an empty articles.xml — GSC
+// flags it. See app/sitemap.xml/route.ts for the matching parent change.
+const CATEGORY_IDS = Object.keys(CATEGORIES).filter((id) => id !== "articles");
 const VALID_IDS = ["main", ...CATEGORY_IDS];
 
 export const dynamic = "force-static";
