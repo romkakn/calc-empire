@@ -44,6 +44,7 @@ const catalogPath = path.join(ROOT, "data/calculators.json");
 const catalog = JSON.parse(readFileSync(catalogPath, "utf8"));
 const calculators = catalog.calculators ?? [];
 const categories = catalog.categories ?? {};
+const articles = catalog.articles ?? [];
 const liveCalculators = calculators.filter((c) => c.status === "live");
 const liveCalcSlugs = new Set(liveCalculators.map((c) => c.slug));
 
@@ -294,6 +295,22 @@ check("Sitemap child-id sync", (violations) => {
         expected,
       )} not found in: ${missing.join(", ")}`,
     );
+  }
+});
+
+// ---------------------------------------------------------------------------
+// Check 6: Article catalog parity
+// ---------------------------------------------------------------------------
+check("Article catalog parity", (violations) => {
+  for (const a of articles) {
+    if (a.status !== "live") continue;
+    const rootDir = path.join(appDir, a.slug);
+    const blogPostDir = path.join(blogDir, a.slug);
+    if (!dirHasPage(rootDir) && !dirHasPage(blogPostDir)) {
+      violations.push(
+        `article "${a.slug}" is marked live but has no page at src/app/${a.slug}/ or src/app/blog/${a.slug}/ — the sitemap would publish a 404`,
+      );
+    }
   }
 });
 

@@ -85,6 +85,14 @@ function categoryUrls(catId: string, now: string): UrlEntry[] {
     })),
   );
 
+  // NOTE: content for JSON "articles" entries actually lives in BLOG_POSTS
+  // (src/lib/blog.ts) under /blog/<slug>, not at the root path built below.
+  // Flipping an articles.json entry to status: "live" without a matching
+  // page at src/app/<slug>/ or src/app/blog/<slug>/ will make this sitemap
+  // publish a URL with no page behind it — a 404 submitted straight to
+  // Search Console. The "Article catalog parity" check in
+  // scripts/check-invariants.mjs guards against exactly this; run
+  // `npm run check` before flipping any article to live.
   const articles: UrlEntry[] = LIVE_ARTICLES.filter(
     (a) => a.category === catId,
   ).map((a) => ({
