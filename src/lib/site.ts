@@ -45,5 +45,5 @@ export function absUrl(path: string): string {
 }
 
 export function calcUrl(slug: string): string {
-  return absUrl(`/${slug}`);
+  return absUrl(`/${slug.replace(/^\//, "")}`);
 }
