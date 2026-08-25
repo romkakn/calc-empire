@@ -9,6 +9,7 @@ import { FAQ } from "@/components/eeat/FAQ";
 import { References } from "@/components/eeat/References";
 import { CommonMistakes } from "@/components/eeat/CommonMistakes";
 import { RelatedCalculators } from "@/components/eeat/RelatedCalculators";
+import { Formula } from "@/components/eeat/Formula";
 import {
   articleSchema,
   breadcrumbListSchema,
@@ -496,17 +497,6 @@ function Section({
         {children}
       </div>
     </section>
-  );
-}
-
-function Formula({ children }: { children: React.ReactNode }) {
-  return (
-    <Card
-      variant="outlined"
-      className="my-4 px-4 py-3 font-[var(--md-sys-typescale-mono-font)] md-body-medium"
-    >
-      {children}
-    </Card>
   );
 }
 

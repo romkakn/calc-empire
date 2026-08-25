@@ -599,17 +599,6 @@ function Section({
   );
 }
 
-function Formula({ children }: { children: React.ReactNode }) {
-  return (
-    <Card
-      variant="outlined"
-      className="my-4 px-4 py-3 font-[var(--md-sys-typescale-mono-font)] md-body-medium"
-    >
-      {children}
-    </Card>
-  );
-}
-
 function WorkedSteps({ steps }: { steps: { label: string; value: string }[] }) {
   return (
     <ol className="mt-4 space-y-2 list-none">
