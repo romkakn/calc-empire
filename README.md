@@ -13,10 +13,11 @@ behind the math.
 
 ## What's inside
 
-- **42 calculators** across 9 categories, including a 50-state programmatic
+- **92 calculators** across 10 categories, including a 50-state programmatic
   paycheck calculator.
-- **103 indexable URLs** in the sitemap (home, category pages, per-calculator
-  pages, state variants).
+- **176 indexable URLs** in the sitemap (home, about, blog index, 10 category
+  pages, 92 calculator pages, 50 paycheck-calculator state pages, 21 blog
+  posts).
 - **Static export by default** — every calculator page is prerendered as HTML
   at build time. Fast loads, no cold starts.
 - **Material Design 3** design system with light/dark/system theme, full
@@ -75,6 +76,18 @@ To build for production:
 npm run build
 npm run start
 ```
+
+## Development
+
+```bash
+npm run lint   # ESLint, --max-warnings=0 — no warning may land on main
+npm test       # node --test over src/lib/__tests__ — pure lib functions (schema, site, theme, blog, payroll-states)
+npm run check  # scripts/check-invariants.mjs — catalog/sitemap/link integrity: no orphan pages, no dead links, no live entry without a page
+npm run build  # next build — the real compile + static-export smoke test
+```
+
+CI (`.github/workflows/ci.yml`) runs all four, in that order, on every push
+and pull request.
 
 ## Adding a calculator
 
