@@ -10,6 +10,7 @@ import { References } from "@/components/eeat/References";
 import { CommonMistakes } from "@/components/eeat/CommonMistakes";
 import { RelatedCalculators } from "@/components/eeat/RelatedCalculators";
 import { Formula } from "@/components/eeat/Formula";
+import { WeightedAverageWidget } from "./Widgets";
 import {
   articleSchema,
   breadcrumbListSchema,
@@ -178,6 +179,7 @@ export default function Page() {
           83-86). The same math works for any class: change the weights, change
           the categories, sum to 1.00, multiply, add.
         </p>
+        <WeightedAverageWidget />
         <p>
           The fastest way to run this for a whole semester is our{" "}
           <Link href="/weighted-grade-calculator">weighted grade calculator</Link>,

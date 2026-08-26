@@ -10,6 +10,7 @@ import { References } from "@/components/eeat/References";
 import { CommonMistakes } from "@/components/eeat/CommonMistakes";
 import { RelatedCalculators } from "@/components/eeat/RelatedCalculators";
 import { Formula } from "@/components/eeat/Formula";
+import { SummaryStatsWidget } from "./Widgets";
 import {
   articleSchema,
   breadcrumbListSchema,
@@ -169,6 +170,7 @@ export default function Page() {
           through the <Link href="/median-calculator">median calculator</Link>{" "}
           and the answer matches what your eyes already told you.
         </p>
+        <SummaryStatsWidget />
       </Section>
 
       <Section id="income" title="Dataset 1: US household income">

@@ -10,6 +10,7 @@ import { References } from "@/components/eeat/References";
 import { CommonMistakes } from "@/components/eeat/CommonMistakes";
 import { RelatedCalculators } from "@/components/eeat/RelatedCalculators";
 import { Formula } from "@/components/eeat/Formula";
+import { HypotenuseWidget } from "./Widgets";
 import {
   articleSchema,
   breadcrumbListSchema,
@@ -222,6 +223,7 @@ export default function Page() {
           it&apos;s 1%. That&apos;s the difference between a wobbly door
           frame and a square one.
         </p>
+        <HypotenuseWidget />
       </Section>
 
       <Section id="ladder" title="3. Picking the right ladder length">
