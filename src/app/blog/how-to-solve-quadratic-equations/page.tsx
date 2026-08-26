@@ -10,6 +10,7 @@ import { References } from "@/components/eeat/References";
 import { CommonMistakes } from "@/components/eeat/CommonMistakes";
 import { RelatedCalculators } from "@/components/eeat/RelatedCalculators";
 import { Formula } from "@/components/eeat/Formula";
+import { DiscriminantWidget } from "./Widgets";
 import {
   articleSchema,
   breadcrumbListSchema,
@@ -199,6 +200,7 @@ export default function Page() {
             factor over integers; you&apos;ll fail.
           </li>
         </ul>
+        <DiscriminantWidget />
         <p>
           A perfect-square discriminant is the green light for factoring. 25,
           49, 121, 144 - if you see one of those (or any other integer square),
