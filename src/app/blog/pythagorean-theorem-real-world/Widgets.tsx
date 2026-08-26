@@ -1,16 +1,11 @@
 "use client";
 
-import { InlineCalc, type InlineResult } from "@/components/blog/InlineCalc";
+import { InlineCalc, fmt, type InlineResult } from "@/components/blog/InlineCalc";
 
 const FIELDS = [
   { key: "a", label: "Leg a", initial: 3, suffix: "ft" },
   { key: "b", label: "Leg b", initial: 4, suffix: "ft" },
 ];
-
-/** Trim floating-point noise without pretending to more precision than we have. */
-function fmt(n: number): string {
-  return Number.parseFloat(n.toFixed(4)).toString();
-}
 
 function computeHypotenuse({ a, b }: Record<string, number>): InlineResult[] {
   if (![a, b].every(Number.isFinite)) return [];
@@ -28,7 +23,7 @@ function computeHypotenuse({ a, b }: Record<string, number>): InlineResult[] {
   const isTriple = Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(c);
 
   return [
-    { label: "Hypotenuse (c = √(a² + b²))", value: `${fmt(c)} ft`, emphasis: true },
+    { label: "Hypotenuse (c = √(a² + b²))", value: `${fmt(c, 4)} ft`, emphasis: true },
     {
       label: "Pythagorean triple?",
       value: isTriple ? "Yes" : "No",

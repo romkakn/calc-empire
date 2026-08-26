@@ -1,6 +1,6 @@
 "use client";
 
-import { InlineCalc, type InlineResult } from "@/components/blog/InlineCalc";
+import { InlineCalc, fmt, type InlineResult } from "@/components/blog/InlineCalc";
 
 const FIELDS = [
   { key: "x1", label: "Value 1", initial: 2 },
@@ -13,11 +13,6 @@ const FIELDS = [
 ];
 
 const KEYS = FIELDS.map((f) => f.key);
-
-/** Trim floating-point noise without pretending to more precision than we have. */
-function fmt(n: number): string {
-  return Number.parseFloat(n.toFixed(4)).toString();
-}
 
 function computeSummary(values: Record<string, number>): InlineResult[] {
   const nums = KEYS.map((k) => values[k]);

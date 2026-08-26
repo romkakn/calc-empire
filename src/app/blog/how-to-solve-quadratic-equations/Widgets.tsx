@@ -1,17 +1,12 @@
 "use client";
 
-import { InlineCalc, type InlineResult } from "@/components/blog/InlineCalc";
+import { InlineCalc, fmt, type InlineResult } from "@/components/blog/InlineCalc";
 
 const FIELDS = [
   { key: "a", label: "a (x² coefficient)", initial: 1, supportingText: "Cannot be 0" },
   { key: "b", label: "b (x coefficient)", initial: -5 },
   { key: "c", label: "c (constant)", initial: 6 },
 ];
-
-/** Trim floating-point noise without pretending to more precision than we have. */
-function fmt(n: number): string {
-  return Number.parseFloat(n.toFixed(6)).toString();
-}
 
 function isPerfectSquare(n: number): boolean {
   if (n < 0 || !Number.isInteger(n)) return false;
@@ -33,14 +28,14 @@ function computeDiscriminant({ a, b, c }: Record<string, number>): InlineResult[
 
   const delta = b * b - 4 * a * c;
   const rows: InlineResult[] = [
-    { label: "Discriminant (Δ = b² − 4ac)", value: fmt(delta), emphasis: true },
+    { label: "Discriminant (Δ = b² − 4ac)", value: fmt(delta, 6), emphasis: true },
   ];
 
   if (delta > 0) {
     const root = Math.sqrt(delta);
     rows.push({
       label: "Solutions",
-      value: `${fmt((-b + root) / (2 * a))}, ${fmt((-b - root) / (2 * a))}`,
+      value: `${fmt((-b + root) / (2 * a), 6)}, ${fmt((-b - root) / (2 * a), 6)}`,
       note: "Two distinct real roots — the parabola crosses the x-axis twice.",
     });
     rows.push({
@@ -53,7 +48,7 @@ function computeDiscriminant({ a, b, c }: Record<string, number>): InlineResult[
   } else if (delta === 0) {
     rows.push({
       label: "Solution",
-      value: `${fmt(-b / (2 * a))} (repeated)`,
+      value: `${fmt(-b / (2 * a), 6)} (repeated)`,
       note: "One real root — the parabola touches the x-axis at its vertex.",
     });
     rows.push({ label: "Try factoring first?", value: "Yes", note: "It factors as a perfect square." });
@@ -62,7 +57,7 @@ function computeDiscriminant({ a, b, c }: Record<string, number>): InlineResult[
     const imag = Math.sqrt(-delta) / (2 * Math.abs(a));
     rows.push({
       label: "Solutions",
-      value: `${fmt(real)} ± ${fmt(imag)}i`,
+      value: `${fmt(real, 6)} ± ${fmt(imag, 6)}i`,
       note: "Two complex conjugates — the parabola never crosses the x-axis.",
     });
     rows.push({

@@ -1,6 +1,6 @@
 "use client";
 
-import { InlineCalc, type InlineResult } from "@/components/blog/InlineCalc";
+import { InlineCalc, fmt, type InlineResult } from "@/components/blog/InlineCalc";
 
 const FIELDS = [
   { key: "g1", label: "Homework grade", initial: 88 },
@@ -19,11 +19,6 @@ const CATEGORIES = [
   { grade: "g3", weight: "w3", label: "Midterm" },
   { grade: "g4", weight: "w4", label: "Final exam" },
 ];
-
-/** Trim floating-point noise without pretending to more precision than we have. */
-function fmt(n: number): string {
-  return Number.parseFloat(n.toFixed(2)).toString();
-}
 
 function computeWeightedAverage(values: Record<string, number>): InlineResult[] {
   const all = CATEGORIES.flatMap((c) => [values[c.grade], values[c.weight]]);

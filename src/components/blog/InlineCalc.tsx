@@ -25,6 +25,11 @@ export type InlineResult = {
   note?: string;
 };
 
+/** Trim floating-point noise without pretending to more precision than we have. */
+export function fmt(n: number, decimals = 2): string {
+  return Number.parseFloat(n.toFixed(decimals)).toString();
+}
+
 /**
  * Live calculation embedded mid-article.
  *
